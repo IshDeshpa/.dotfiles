@@ -20,7 +20,6 @@
 
   imports =
     [ # Include the results of the hardware scan.
-     # <nixos-hardware/framework/13-inch/cpu/7040-amd>
       ./hardware-configuration.nix
     ];
 
@@ -42,15 +41,6 @@
   time.timeZone = "America/Chicago";
 
   services.fwupd.enable = true;
-  services.spotifyd = {
-   enable = true;
-   settings ={
-     global = {
-       username = "ishdeshpa";
-       password = "deshpande39";
-     };
-   };
-  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -72,7 +62,7 @@
   #  layout = "us";
   #  variant = "";
   #};
-
+  
   programs.niri.enable = true;
   programs.light.enable = true;
 
@@ -82,6 +72,7 @@
     description = "Ishan Deshpande";
     extraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
     packages = with pkgs; [];
+    shell = pkgs.bash;
   };
 
   fileSystems."/boot" =
@@ -108,9 +99,9 @@
  
   environment.systemPackages = with pkgs; [
     # basic
-    vim
-    neovim
+    nano
     wget
+    wl-clipboard
     networkmanager
     git
     zip
@@ -122,11 +113,18 @@
     light # brightness
     firefox-devedition-bin
     spotify-player
+    slack
+    legcord
+    bitwarden
+    docker
+    cheese # basic camera
     # environment
-    alacritty
-    fuzzel
-    waybar
+    alacritty # terminal
+    fuzzel # fuzzy finder
+    waybar # toolbar
+    mako # notifications
     swaylock-effects
+    xwayland-satellite
     # media ctrl
     bluez
     pavucontrol
@@ -135,7 +133,10 @@
     xdg-desktop-portal-gnome
     gnome-keyring
   ];
-
+  
+  # enables slack (prolly electron) with wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 

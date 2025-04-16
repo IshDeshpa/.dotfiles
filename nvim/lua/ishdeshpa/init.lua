@@ -1,0 +1,1 @@
+require('ishdeshpa/telescope')

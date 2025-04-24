@@ -14,6 +14,13 @@
         modules = [
 	        nixos-hardware.nixosModules.framework-13-7040-amd
           ./configuration.nix
+          
+          #{
+          #  nixpkgs.overlays = [
+          #    (import ./overlays/fuzzmoji.nix)
+          #  ];
+          #}
+
 
           home-manager.nixosModules.home-manager
           {

@@ -13,6 +13,10 @@
       dates = "daily";
       options = "--delete-older-than 7d";
     };
+    optimise = {
+      automatic = true;
+      dates = ["daily"];
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -79,6 +83,14 @@
     { device = "/dev/nvme0n1p1";
       fsType = "vfat";
     };
+  
+  systemd.tmpfiles.rules = [ "d /mnt 0755 user group" ]; # create temp dir
+  fileSystems."/mnt" = {
+    device = "/dev/nvme0n1p2";
+    fsType = "ext4";
+    #options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
+  };
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -101,6 +113,8 @@
     # basic
     nano
     wget
+    killall
+    zoxide
     wl-clipboard
     networkmanager
     git
@@ -109,15 +123,28 @@
     tmux
     gcc # gcc
     rustup # rust (cargo)
+    python314 # python
     playerctl # media keys
+    pulseaudio # audio control
     light # brightness
     firefox-devedition-bin
     spotify-player
+    spotifyd
     slack
     legcord
     bitwarden
     docker
     cheese # basic camera
+    #fuzzmoji # emoji picker
+    sway-contrib.grimshot # screenshot
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions; [
+        bbenoist.nix
+        ms-python.python
+        ms-azuretools.vscode-docker
+        ms-vscode-remote.remote-ssh
+      ];
+    })
     # environment
     alacritty # terminal
     fuzzel # fuzzy finder

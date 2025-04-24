@@ -1,114 +1,116 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 20,
-    "spacing": 0,
-    "modules-left": [
-        "niri/workspaces",
-        "wlr/taskbar"
-    ],
-    "modules-center": [
-        "clock",
-	"mpris"
-    ],
-    "modules-right": [
-        "custom/pomodoro",
-        "network",
-        "pulseaudio",
-        "backlight",
-        "battery",
-        "tray"
-    ],
-    "custom/workspaces": {
-        "exec": "~/.config/niri/scripts/workspaces.sh \"$WAYBAR_OUTPUT_NAME\"",
-        "signal": 8
+  "layer": "top",
+  "position": "top",
+  "height": 20,
+  "spacing": 0,
+  "modules-left": [
+    "niri/workspaces"
+    //"wlr/taskbar"
+  ],
+  "modules-center": [
+    "clock",
+    "mpris"
+  ],
+  "modules-right": [
+    "custom/pomodoro",
+    "network",
+    "pulseaudio",
+    "backlight",
+    "battery",
+    "tray"
+  ],
+  "custom/workspaces": {
+    "exec": "~/.config/niri/scripts/workspaces.sh \"$WAYBAR_OUTPUT_NAME\"",
+    "signal": 8
+  },
+  "custom/screenshot": {
+    "format": "󰹑",
+    "on-click": "grimshot save output && notify-send 'Screenshot Saved'",
+    "tooltip-format": "{Screenshot a region}"
+  },
+  "custom/pomodoro": {
+    "format": "{}",
+    "return-type": "json",
+    "exec": "waybar-module-pomodoro",
+    "on-click": "waybar-module-pomodoro toggle",
+    "on-click-right": "waybar-module-pomodoro reset"
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": " {:%H:%M %a}",
+    "format-alt": "󰃭 {:%Y-%m-%d}"
+  },
+  "mpris": {
+    "format": "{status_icon} {title}  -  {artist}",
+    "format-paused": "{status_icon} {title}  -  {artist}",
+    "status-icons": {
+      "playing": "▶",
+      "paused": "⏸"
     },
-    "custom/screenshot": {
-        "format": "󰹑",
-        "on-click": "grimshot save output && notify-send 'Screenshot Saved'",
-        "tooltip-format": "{Screenshot a region}"
+    "ignored-players": ["firefox"],
+    "max-length": 40
+  },
+  "cpu": {
+    "format": "󰻠 {usage}%",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "󰍛 {}%"
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "󰔏 {temperatureC}°C {icon}",
+    "format-icons": ["󱃃", "󰔏", "󱃂"]
+  },
+  "backlight": {
+    "format": "{icon}  {percent}%",
+    "format-icons": ["󰃞", "󰃟", "󰃠", "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓"]
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
     },
-    "custom/pomodoro": {
-        "format": "{}",
-        "return-type": "json",
-        "exec": "waybar-module-pomodoro",
-        "on-click": "waybar-module-pomodoro toggle",
-        "on-click-right": "waybar-module-pomodoro reset"
-    },
-    "tray": {
-        "spacing": 10
-    },
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": " {:%H:%M %a}",
-        "format-alt": "󰃭 {:%Y-%m-%d}"
-    },
-    "mpris": {
-	"format": "{status_icon} {title}  -  {artist}",
-	"format-paused": "{status_icon} {title}  -  {artist}",
-	"status-icons": {
-		"playing": "▶",
-		"paused": "⏸"
-	},
-	"ignored-players": ["firefox"]
-    },
-    "cpu": {
-        "format": "󰻠 {usage}%",
-        "tooltip": false
-    },
-    "memory": {
-        "format": "󰍛 {}%"
-    },
-    "temperature": {
-        "critical-threshold": 80,
-        "format": "󰔏 {temperatureC}°C {icon}",
-        "format-icons": ["󱃃", "󰔏", "󱃂"]
-    },
-    "backlight": {
-        "format": "{icon}  {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠", "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓"]
-    },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-full": "󰁹 {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰚥 {capacity}%",
-        "format-alt": "{icon} {time}",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-    },
-    "network": {
-        "interval": 1,
-        "format": "{ifname}",
-        "format-wifi": "󰤨  {bandwidthDownBytes} 󰤥  {bandwidthUpBytes}",
-        "format-ethernet": "󰈀 {bandwidthDownBytes} 󰤥 {bandwidthUpBytes}",
-        "format-disconnected": "󰤮",
-        "tooltip-format": "{ipaddr}",
-        "format-linked": "󰈁 {ifname} (No IP)",
-        "tooltip-format-wifi": "󰤨 {essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": "󰈀 {ifname}",
-        "tooltip-format-disconnected": "󰤮 Disconnected",
-        "max-length": 40
-    },
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "󰝟",
-        "on-click": "~/.config/waybar/volume --toggle",
-        "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/waybar/volume --inc",
-        "on-scroll-down": "~/.config/waybar/volume --dec",
-        "scroll-step": 5,
-        "format-icons": {
-            "headphone": "󰋋",
-            "hands-free": "󰋎",
-            "headset": "󰋎",
-            "phone": "󰏲",
-            "portable": "󰏲",
-            "car": "󰄋",
-            "default": ["󰕿", "󰖀", "󰕾"]
-        }
+    "format": "{icon} {capacity}%",
+    "format-full": "󰁹 {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+  "network": {
+    "interval": 1,
+    "format": "{ifname}",
+    "format-wifi": "󰤨  {bandwidthDownBytes} 󰤥  {bandwidthUpBytes}",
+    "format-ethernet": "󰈀 {bandwidthDownBytes} 󰤥 {bandwidthUpBytes}",
+    "format-disconnected": "󰤮",
+    "tooltip-format": "{ipaddr}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-wifi": "󰤨 {essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "󰈀 {ifname}",
+    "tooltip-format-disconnected": "󰤮 Disconnected",
+    "max-length": 40,
+    "on-click-right": "nm-connection-editor" 
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟",
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "~/.dotfiles/volume.sh up",
+    "on-scroll-down": "~/.dotfiles/volume.sh down",
+    "scroll-step": 5,
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󰋎",
+      "headset": "󰋎",
+      "phone": "󰏲",
+      "portable": "󰏲",
+      "car": "󰄋",
+      "default": ["󰕿", "󰖀", "󰕾"]
     }
+  }
 }

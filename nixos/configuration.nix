@@ -79,17 +79,16 @@
     shell = pkgs.bash;
   };
 
-  fileSystems."/boot" =
-    { device = "/dev/nvme0n1p1";
-      fsType = "vfat";
-    };
+  #fileSystems."/boot" =
+  #  { device = "/dev/nvme0n1p1";
+  #    fsType = "vfat";
+  #  };
   
-  systemd.tmpfiles.rules = [ "d /mnt 0755 user group" ]; # create temp dir
-  fileSystems."/mnt" = {
-    device = "/dev/nvme0n1p2";
-    fsType = "ext4";
-    #options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
-  };
+  #fileSystems."/mnt" = {
+  #  device = "/dev/nvme0n1p2";
+  #  fsType = "ext4";
+  #  #options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
+  #};
 
 
   # Allow unfree packages

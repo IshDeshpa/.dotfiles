@@ -8,14 +8,38 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "thunderbolt" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-
+  
+  fileSystems."/".neededForBoot = true;
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/39291c25-29d2-42a5-b0f9-70d10db83fdd";
       fsType = "xfs";
+    };
+
+  fileSystems."/efi" =
+    { device = "systemd-1";
+      fsType = "autofs";
+    };
+  
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/B2A8-80AD";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" "users" "nofail" ];
+    };
+  
+  systemd.tmpfiles.rules = [ "d /mnt 0755 ishdeshpa ishdeshpa" ];
+  fileSystems."/mnt" =
+    { device = "/dev/disk/by-uuid/636320c7-2118-4663-a6e4-d52f8b79a554";
+      fsType = "none";
+      options = [ 
+          "bind"
+          "users" # Allows any user to mount and unmount
+          "nofail" # Prevent system from failing if this drive doesn't mount
+          ];
     };
 
   swapDevices = [ ];

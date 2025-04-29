@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo nixos-rebuild --flake ./nixos#ishdeshpa switch
+sudo nixos-rebuild --flake /home/ishdeshpa/.dotfiles/nixos#ishdeshpa switch --show-trace $@
 

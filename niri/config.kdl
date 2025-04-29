@@ -120,6 +120,14 @@ input {
     position x=1280 y=0
 }
 
+output "DP-2" {
+    // off
+    mode "1920x1080@59.950"
+    scale 1.0
+    position x=0 y=0
+    variable-refresh-rate // on-demand=true
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -359,7 +367,7 @@ binds {
     Mod+T { spawn "alacritty"; }
     Mod+Space { spawn "fuzzel"; }
     Mod+period { spawn "fuzzmoji"; }
-    Mod+Alt+L { spawn "swaylock" "--clock" "--indicator" "--screenshots" "--effect-scale" "0.4" "--effect-vignette" "0.2:0.5" "--effect-blur" "4x2" "--datestr" "\"%a %e.%m.%Y\"" "--timestr" "\"%k:%M\""; }
+    Mod+Alt+L { spawn "swaylock" "--clock" "--indicator" "--screenshots" "--effect-scale" "0.4" "--effect-vignette" "0.2:0.5" "--effect-blur" "4x2"; }
     Mod+Alt+F { spawn "firefox-developer-edition"; }
 
 
@@ -376,6 +384,7 @@ binds {
 
     XF86MonBrightnessUp allow-when-locked=true { spawn "light" "-A" "10"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "light" "-U" "10"; }
+    Ctrl+Space allow-when-locked=true { spawn "bash" "-c" "/home/ishdeshpa/.dotfiles/backlight.sh"; }
 
     XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }

@@ -12,7 +12,7 @@
     "mpris"
   ],
   "modules-right": [
-    "custom/pomodoro",
+//    "custom/pomodoro",
     "network",
     "pulseaudio",
     "backlight",

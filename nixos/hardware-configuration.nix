@@ -34,15 +34,24 @@
   systemd.tmpfiles.rules = [ "d /mnt 0755 ishdeshpa ishdeshpa" ];
   fileSystems."/mnt" =
     { device = "/dev/disk/by-uuid/636320c7-2118-4663-a6e4-d52f8b79a554";
-      fsType = "none";
+      fsType = "ext4";
       options = [ 
-          "bind"
           "users" # Allows any user to mount and unmount
           "nofail" # Prevent system from failing if this drive doesn't mount
+          "exec" # exec
           ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    {
+      device = "/var/lib/swap/swapfile";
+      priority = 100;
+    }
+  ];
+  boot.resumeDevice = "/dev/disk/by-uuid/39291c25-29d2-42a5-b0f9-70d10db83fdd"; # UUID of the partition where swapfile is
+  boot.kernelParams = [
+    "resume_offset=58465342"
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

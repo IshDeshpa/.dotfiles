@@ -32,19 +32,67 @@
   boot.loader.systemd-boot.enable = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
+  
   # Enable networking
   networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
+  # List services that you want to enable:
+  swapDevices = [
+    {
+      device = "/var/lib/swap/swapfile";
+      priority = 100;
+    }
+  ];
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
   services.fwupd.enable = true;
+  
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true; # allow .local hostnames to be resolved
+    publish.enable = true; # optional, if you want your machine discoverable too
+  };
+
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    jack.enable = true;
+  };
+
+  systemd.user.services.mpris-proxy = {
+    description = "Mpris proxy";
+    after = [ "network.target" "sound.target" ];
+    wantedBy = [ "default.target" ];
+    serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+  };
+
+  services.blueman.enable = true;
+
+  services.logind = {
+    lidSwitch = "suspend"; # already maps to HandleLidSwitch=suspend
+    extraConfig = ''
+      HandleLidSwitchDocked=ignore
+      IdleAction=hybrid-sleep
+      IdleActionSec=15min
+    '';
+  };
+  
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+      enable = true;
+      setSocketVariable = true;
+  };
+
+  virtualisation.libvirtd.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -61,36 +109,21 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap in X11
-  #services.xserver.xkb = {
-  #  layout = "us";
-  #  variant = "";
-  #};
-  
   programs.niri.enable = true;
   programs.light.enable = true;
+  
+  users.groups.plugdev = {};
+  users.groups.vboxusers = {};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ishdeshpa = {
     isNormalUser = true;
     description = "Ishan Deshpande";
-    extraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" ];
+    extraGroups = [ "wheel" "audio" "video" "networkmanager" "docker" "jackaudio" "plugdev" "vboxusers" ];
     packages = with pkgs; [];
     shell = pkgs.bash;
   };
-
-  #fileSystems."/boot" =
-  #  { device = "/dev/nvme0n1p1";
-  #    fsType = "vfat";
-  #  };
   
-  #fileSystems."/mnt" = {
-  #  device = "/dev/nvme0n1p2";
-  #  fsType = "ext4";
-  #  #options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
-  #};
-
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -113,19 +146,31 @@
     nano
     wget
     killall
-    zoxide
     wl-clipboard
     networkmanager
+    networkmanagerapplet
     git
     zip
     unzip
+    ripgrep # for live grep -- searching across all file content in dir
+    dos2unix # for awesome
     tmux
+    bear # for generating compile_commands
+    lm4flash
     gcc # gcc
+    clang-tools
+    gdb
+    gcc-arm-embedded # arm-none-eabi-gcc
+    gnumake
+    openocd    
     rustup # rust (cargo)
     python314 # python
     playerctl # media keys
     pulseaudio # audio control
     light # brightness
+    tshark # terminal wireshark
+    fw-ectool
+    fwupd
     firefox-devedition-bin
     spotify-player
     spotifyd
@@ -133,8 +178,14 @@
     legcord
     bitwarden
     docker
+    pinta
     cheese # basic camera
+    realvnc-vnc-viewer
+    subversion
+    rapidsvn
+    inetutils
     #fuzzmoji # emoji picker
+    nmap
     sway-contrib.grimshot # screenshot
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
@@ -158,35 +209,38 @@
     xdg-desktop-portal-gtk # required for waybar & other flatpak-style sandboxed apps
     xdg-desktop-portal-gnome
     gnome-keyring
+    rpi-imager
+    reaper # music production
+    stlink
+    virtualbox
   ];
   
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="1234", MODE="0666"
+    SUBSYSTEM=="usb_device", ATTRS{idVendor}=="1234", MODE="0666"
+  '';
+
   # enables slack (prolly electron) with wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  systemd.user.services.mpris-proxy = {
-    description = "Mpris proxy";
-    after = [ "network.target" "sound.target" ];
-    wantedBy = [ "default.target" ];
-    serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+ 
+   # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 
-  services.blueman.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=yes
+    AllowHibernation=yes
+    AllowHybridSleep=yes
+    AllowSuspendThenHibernate=yes
+    HibernateDelaySec=1h
+  '';
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

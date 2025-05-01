@@ -12,7 +12,7 @@ prefer-no-csd
 
 environment {
     QT_QPA_PLATFORM "wayland"
-    DISPLAY null
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 
 cursor {
@@ -89,7 +89,7 @@ input {
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
 // Remember to uncomment the node by removing "/-"!
-/-output "eDP-1" {
+output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
 
@@ -99,10 +99,10 @@ input {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
-    mode "1920x1080@120.030"
+    mode "2256x1504@59.999"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 2
+    scale 1.5
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -118,6 +118,7 @@ input {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=1280 y=0
+    background-color "#11111b"
 }
 
 output "DP-2" {
@@ -377,13 +378,13 @@ binds {
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+10%"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-10%"; }
+    XF86AudioMute        allow-when-locked=true { spawn "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "pactl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "light" "-A" "10"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "light" "-U" "10"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "-c" "backlight" "-d" "amdgpu_bl1" "s" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-c" "backlight" "-d" "amdgpu_bl1" "s" "10%-"; }
     Ctrl+Space allow-when-locked=true { spawn "bash" "-c" "/home/ishdeshpa/.dotfiles/backlight.sh"; }
 
     XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }

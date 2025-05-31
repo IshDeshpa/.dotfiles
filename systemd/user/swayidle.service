@@ -1,0 +1,12 @@
+[Unit]
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/swayidle -w timeout 120 'swaylock --clock --indicator --screenshots --effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 4x2' \
+timeout 360 'swaymsg "output * dpms off"' \
+	resume 'swaymsg "output * dpms on"' \
+idlehint 600 \
+before-sleep 'swaylock -f -c 000000'
+Restart=on-failure

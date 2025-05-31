@@ -3,9 +3,6 @@
 // Check the wiki for a full description of the configuration:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
-spawn-at-startup "waybar"
-spawn-at-startup "alacritty"
-spawn-at-startup "mako"
 spawn-at-startup "xwayland-satellite"
 
 prefer-no-csd
@@ -13,6 +10,7 @@ prefer-no-csd
 environment {
     QT_QPA_PLATFORM "wayland"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
+    DISPLAY ":0"
 }
 
 cursor {
@@ -122,13 +120,23 @@ output "eDP-1" {
 }
 
 output "DP-2" {
-    // off
+    off
     mode "1920x1080@59.950"
     scale 1.0
     position x=0 y=0
     variable-refresh-rate // on-demand=true
+
+    background-color "#11111b"
 }
 
+output "DP-4" {
+    mode "1920x1080@59.950"
+    scale 1.0
+    position x=2784 y=0
+    variable-refresh-rate // on-demand=true
+
+    background-color "#11111b"
+}
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -326,7 +334,7 @@ window-rule {
     // This app-id regular expression will work for both:
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"firefox-developer-edition$"# title="^Picture-in-Picture$"
     open-floating true
 }
 

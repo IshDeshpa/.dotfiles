@@ -5,7 +5,7 @@
   "spacing": 0,
   "modules-left": [
     "niri/workspaces"
-    //"wlr/taskbar"
+//    "wlr/taskbar"
   ],
   "modules-center": [
     "clock",
@@ -40,7 +40,7 @@
   },
   "clock": {
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": " {:%H:%M %a}",
+    "format": " {:%I:%M %p}",
     "format-alt": "󰃭 {:%Y-%m-%d}"
   },
   "mpris": {

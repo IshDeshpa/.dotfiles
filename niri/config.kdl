@@ -4,6 +4,9 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
 spawn-at-startup "xwayland-satellite"
+spawn-at-startup "/home/ishdeshpa/.dotfiles/battery.sh"
+spawn-at-startup "mullvad-vpn"
+spawn-at-startup "sway-bg -i /mnt/pictures/blue-wallpaper.jpg"
 
 prefer-no-csd
 
@@ -117,6 +120,7 @@ output "eDP-1" {
     // automatically.
     position x=1280 y=0
     background-color "#11111b"
+    backdrop-color "#11111b"
 }
 
 output "DP-2" {
@@ -337,6 +341,7 @@ window-rule {
     match app-id=r#"firefox-developer-edition$"# title="^Picture-in-Picture$"
     open-floating true
 }
+
 
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)

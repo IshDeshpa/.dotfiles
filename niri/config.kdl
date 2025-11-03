@@ -5,7 +5,7 @@
 
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "/home/ishdeshpa/.dotfiles/battery.sh"
-spawn-at-startup "mullvad-vpn"
+// spawn-at-startup "mullvad-vpn"
 spawn-at-startup "sway-bg -i /mnt/pictures/blue-wallpaper.jpg"
 
 prefer-no-csd
@@ -13,7 +13,6 @@ prefer-no-csd
 environment {
     QT_QPA_PLATFORM "wayland"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    DISPLAY ":0"
 }
 
 cursor {
@@ -124,7 +123,6 @@ output "eDP-1" {
 }
 
 output "DP-2" {
-    off
     mode "1920x1080@59.950"
     scale 1.0
     position x=0 y=0

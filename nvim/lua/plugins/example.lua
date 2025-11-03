@@ -16,7 +16,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "catppuccin",
     },
   },
 
@@ -73,6 +73,7 @@ return {
         -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
       },
+      autoformat = false,
     },
   },
 
@@ -195,9 +196,4 @@ return {
     },
   },
 
-  {
-    "kaarmu/typst.vim",
-    ft = "typst",
-    lazy = false,
-  },
 }

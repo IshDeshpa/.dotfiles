@@ -4,8 +4,7 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "/home/ishdeshpa/.dotfiles/battery.sh"
-// spawn-at-startup "mullvad-vpn"
+spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/battery.sh"
 spawn-at-startup "sway-bg -i /mnt/pictures/blue-wallpaper.jpg"
 
 prefer-no-csd
@@ -381,6 +380,7 @@ binds {
     Mod+period { spawn "fuzzmoji"; }
     Mod+Alt+L { spawn "swaylock" "--clock" "--indicator" "--screenshots" "--effect-scale" "0.4" "--effect-vignette" "0.2:0.5" "--effect-blur" "4x2"; }
     Mod+Alt+F { spawn "firefox-developer-edition"; }
+    Mod+Alt+M { spawn-sh "/home/ishdeshpa/.dotfiles/niri/open.sh spotify"; }
 
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.

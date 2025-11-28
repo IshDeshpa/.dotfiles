@@ -5,7 +5,12 @@
 
 spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/battery.sh"
-spawn-at-startup "sway-bg -i /mnt/pictures/blue-wallpaper.jpg"
+spawn-sh-at-startup "swaybg -i /home/ishdeshpa/.dotfiles/dark-cat-rosewater.png"
+
+spawn-at-startup "spotify"
+spawn-at-startup "slack"
+spawn-at-startup "legcord"
+spawn-at-startup "bunnylol"
 
 prefer-no-csd
 
@@ -120,6 +125,13 @@ output "eDP-1" {
     background-color "#11111b"
     backdrop-color "#11111b"
 }
+
+// layer-rule {
+//     // This is for swaybg; change for other wallpaper tools.
+//     // Find the right namespace by running niri msg layers.
+//     match namespace="^wallpaper$"
+//     place-within-backdrop true
+// }
 
 output "DP-2" {
     mode "1920x1080@59.950"
@@ -375,7 +387,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T { spawn "alacritty"; }
+    Mod+T { spawn "kitty"; }
     Mod+Space { spawn "fuzzel"; }
     Mod+period { spawn "fuzzmoji"; }
     Mod+Alt+L { spawn "swaylock" "--clock" "--indicator" "--screenshots" "--effect-scale" "0.4" "--effect-vignette" "0.2:0.5" "--effect-blur" "4x2"; }
@@ -541,7 +553,7 @@ binds {
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
     // Switches focus between the current and the previous workspace.
-    // Mod+Tab { focus-workspace-previous; }
+    Mod+Tab { focus-workspace-previous; }
 
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.

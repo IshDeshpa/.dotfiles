@@ -1,6 +1,16 @@
 return {
   'chomosuke/typst-preview.nvim',
-  lazy = false, -- or ft = 'typst'
+  ft = 'typst', -- load only for Typst files
   version = '1.*',
-  opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+  opts = {}, -- lazy.nvim will call setup{}
+
+  keys = {
+    {
+      '<leader>tp',
+      function()
+        vim.cmd('TypstPreviewToggle')
+      end,
+      desc = 'Toggle Typst Preview',
+    },
+  },
 }

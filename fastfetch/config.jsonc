@@ -1,0 +1,38 @@
+{
+  "logo": {
+    "type": "auto"
+  },
+  "general": {
+    "processingTimeout": 1000
+  },
+  "modules": [
+    { "type": "title" },
+    { "type": "separator" },
+    { "type": "os" },
+    { "type": "kernel" },
+    { "type": "uptime" },
+    { "type": "packages" },
+    { "type": "shell" },
+    { "type": "resolution" },
+    { "type": "de" },
+    { "type": "wm" },
+    { "type": "wmtheme" },
+    { "type": "theme" },
+    { "type": "icons" },
+    { "type": "wallpaper" },
+    { "type": "font" },
+    { "type": "cursor" },
+    { "type": "terminal" },
+    { "type": "terminalfont" },
+    { "type": "cpu" },
+    { "type": "gpu" },
+    { "type": "memory" },
+    { "type": "swap" },
+    { "type": "disk", "excludeTypes": ["sshfs"] },
+    { "type": "battery" },
+    { "type": "poweradapter" },
+    { "type": "bluetooth" },
+    { "type": "wifi" },
+    { "type": "locale" }
+  ]
+}

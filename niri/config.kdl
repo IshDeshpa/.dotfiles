@@ -7,10 +7,24 @@ spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/battery.sh"
 spawn-sh-at-startup "swaybg -i /home/ishdeshpa/.dotfiles/dark-cat-rosewater.png"
 
+spawn-at-startup "bunnylol"
 spawn-at-startup "spotify"
 spawn-at-startup "slack"
 spawn-at-startup "legcord"
-spawn-at-startup "bunnylol"
+
+workspace "control-deck"
+window-rule {
+    match at-startup=true app-id="spotify"
+    open-on-workspace "control-deck"
+}
+window-rule {
+    match at-startup=true app-id="slack"
+    open-on-workspace "control-deck"
+}
+window-rule {
+    match at-startup=true app-id="legcord"
+    open-on-workspace "control-deck"
+}
 
 prefer-no-csd
 
@@ -389,7 +403,6 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T { spawn "kitty"; }
     Mod+Space { spawn "fuzzel"; }
-    Mod+period { spawn "fuzzmoji"; }
     Mod+Alt+L { spawn "swaylock" "--clock" "--indicator" "--screenshots" "--effect-scale" "0.4" "--effect-vignette" "0.2:0.5" "--effect-blur" "4x2"; }
     Mod+Alt+F { spawn "firefox-developer-edition"; }
     Mod+Alt+M { spawn-sh "/home/ishdeshpa/.dotfiles/niri/open.sh spotify"; }

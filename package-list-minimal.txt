@@ -58,7 +58,6 @@ udisks2
 unzip
 usbutils
 valgrind
-visual-studio-code-bin
 waybar
 wget
 which
@@ -67,6 +66,5 @@ wlr-randr
 xdg-desktop-portal-gnome
 xdg-utils
 xorg-xwayland
-yay
 zip
 zoxide

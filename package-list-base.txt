@@ -156,7 +156,6 @@ xdg-desktop-portal-gnome
 xdg-utils
 xorg-xwayland
 xwayland-satellite-git
-yay
 zip
 zoom
 zoxide

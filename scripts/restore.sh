@@ -23,7 +23,7 @@ esac
 yay -Sy --needed - < "$PKG_FILE"
 "$REPO_ROOT/scripts/cleanup.sh"
 
-for dir in "$SRC"/*; do
+for dir in "$REPO_ROOT"/*; do
     [ -d "$dir" ] || continue
 
     name="$(basename "$dir")"

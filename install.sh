@@ -41,7 +41,7 @@ mkdir -p /mnt/etc
 cp /etc/resolv.conf /mnt/etc/resolv.conf
 
 echo "Installing base system"
-pacstrap /mnt base linux linux-firmware vim sudo openssh
+pacstrap /mnt base linux linux-firmware nvim sudo openssh git
 
 echo "Generating fstab..."
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -55,3 +55,4 @@ pacman -S grub efibootmgr
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
+echo "Ready to arch-chroot /mnt"

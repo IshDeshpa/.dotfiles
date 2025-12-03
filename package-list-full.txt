@@ -95,9 +95,6 @@ pavucontrol
 picocom
 pipewire-pulse
 power-profiles-daemon
-python-alive-progress
-python-cantools
-python-capstone
 python-jq
 python-pandas
 python-pip
@@ -110,7 +107,6 @@ saleae-logic2
 sl
 slack-electron
 spotify
-spotifyd
 sshfs
 starship
 steam
@@ -176,7 +172,6 @@ which
 wireless_tools
 wl-clipboard
 wlr-randr
-woff2-font-awesome
 xdg-desktop-portal-gnome
 xdg-utils
 xorg-xwayland

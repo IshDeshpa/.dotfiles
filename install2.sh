@@ -6,3 +6,11 @@ if ! id -u ishdeshpa >/dev/null 2>&1; then
     useradd -m -G wheel -s /bin/bash ishdeshpa
     passwd ishdeshpa
 fi
+
+# ensure sudo is installed
+pacman -S --needed sudo
+
+# enable wheel group for sudo
+if ! grep -q '^%wheel ALL=(ALL:ALL) ALL' /etc/sudoers; then
+    echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
+fi

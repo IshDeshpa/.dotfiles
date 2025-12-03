@@ -11,3 +11,7 @@ fi
 if ! grep -q '^%wheel ALL=(ALL:ALL) ALL' /etc/sudoers; then
     echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
 fi
+
+pacman -Sy grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg

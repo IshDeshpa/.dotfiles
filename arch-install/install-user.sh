@@ -15,4 +15,4 @@ if ! grep -q '^%wheel ALL=(ALL:ALL) ALL' /etc/sudoers; then
     echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
 fi
 
-chmod 777 ..
+chmod -R 777 ..

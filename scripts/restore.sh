@@ -41,4 +41,5 @@ for dir in "$REPO_ROOT"/*; do
     echo "Linked $name → $target"
 done
 
+ln -s $REPO_ROOT/.bashrc $HOME/.bashrc
 systemctl enable --now ly.service

@@ -117,10 +117,9 @@ ishdeshpa)
     SCRIPT_PATH="$(readlink -f "$0")"
     SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
     REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
-    DEST="$HOME/.config"
 
     # argument forwarded to restore.sh
-    RESTORE_ARG="$2"
+    RESTORE_ARG="$1"
     [ -z "$RESTORE_ARG" ] && { 
         echo "Usage: $0 ishdeshpa {minimal|base|full|/path/to/pkglist}"; 
         exit 1; 
@@ -134,27 +133,8 @@ ishdeshpa)
     popd
 
     # run restore script with argument
-    "$SCRIPT_DIR/restore.sh" "$RESTORE_ARG"
-
-    systemctl enable --now ly.service
-    systemctl enable --now NetworkManager.service
-
-    for dir in "$REPO_ROOT"/*; do
-        [ -d "$dir" ] || continue
-
-        name="$(basename "$dir")"
-        target="$DEST/$name"
-
-        if [ -L "$target" ] || [ -e "$target" ]; then
-            echo "Skipping $name (already exists)"
-            continue
-        fi
-
-        ln -s "$dir" "$target"
-        echo "Linked $name → $target"
-    done
-
-    ln -sf "$REPO_ROOT/.bashrc" "$HOME/.bashrc"
+    "$SCRIPT_DIR/restore-packages.sh" "$RESTORE_ARG"
+    "$SCRIPT_DIR/config-ln.sh"
     ;;
 
 ############################################

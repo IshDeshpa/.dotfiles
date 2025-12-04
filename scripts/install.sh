@@ -121,7 +121,10 @@ ishdeshpa)
 
     # argument forwarded to restore.sh
     RESTORE_ARG="$2"
-    [ -z "$RESTORE_ARG" ] && { echo "Missing restore option"; exit 1; }
+    [ -z "$RESTORE_ARG" ] && { 
+        echo "Usage: $0 ishdeshpa {minimal|base|full|/path/to/pkglist}"; 
+        exit 1; 
+    }
 
     # install yay
     git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin

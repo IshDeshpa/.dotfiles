@@ -2,44 +2,31 @@
 
 set -e
 
+if [ -z "$1" ]; then
+    echo "Usage: $0 {minimal|base|full|/path/to/pkglist}"
+    exit 1
+fi
+
 SCRIPT_PATH="$(readlink -f "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 DEST="$HOME/.config"
 
-echo "Select package list:"
-echo "  1) minimal"
-echo "  2) base"
-echo "  3) full"
-read -r -p "Enter choice [1-3]: " choice
-
-case "$choice" in
-    1) PKG_FILE="$REPO_ROOT/package-list-minimal.txt" ;;
-    2) PKG_FILE="$REPO_ROOT/package-list-base.txt" ;;
-    3) PKG_FILE="$REPO_ROOT/package-list-full.txt" ;;
-    *) echo "Invalid selection"; exit 1 ;;
+case "$1" in
+    minimal) PKG_FILE="$REPO_ROOT/package-list-minimal.txt" ;;
+    base)    PKG_FILE="$REPO_ROOT/package-list-base.txt" ;;
+    full)    PKG_FILE="$REPO_ROOT/package-list-full.txt" ;;
+    *)       PKG_FILE="$1" ;;  # direct file path
 esac
 
-# some packages require rust default to be set
+if [ ! -f "$PKG_FILE" ]; then
+    echo "Package list not found: $PKG_FILE"
+    exit 1
+fi
+
+yay -Sy rustup
 rustup default stable
 
 yay -Sy --needed - < "$PKG_FILE"
+
 "$REPO_ROOT/scripts/cleanup.sh"
-
-for dir in "$REPO_ROOT"/*; do
-    [ -d "$dir" ] || continue
-
-    name="$(basename "$dir")"
-    target="$DEST/$name"
-
-    if [ -L "$target" ] || [ -e "$target" ]; then
-        echo "Skipping $name (already exists)"
-        continue
-    fi
-
-    ln -s "$dir" "$target"
-    echo "Linked $name → $target"
-done
-
-ln -s $REPO_ROOT/.bashrc $HOME/.bashrc
-systemctl enable --now ly.service

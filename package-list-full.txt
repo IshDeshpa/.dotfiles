@@ -172,6 +172,7 @@ which
 wireless_tools
 wl-clipboard
 wlr-randr
+woff2-font-awesome
 xdg-desktop-portal-gnome
 xdg-utils
 xorg-xwayland

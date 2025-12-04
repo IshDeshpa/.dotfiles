@@ -20,6 +20,9 @@ case "$choice" in
     *) echo "Invalid selection"; exit 1 ;;
 esac
 
+# some packages require rust default to be set
+rustup default stable
+
 yay -Sy --needed - < "$PKG_FILE"
 "$REPO_ROOT/scripts/cleanup.sh"
 
@@ -37,3 +40,5 @@ for dir in "$REPO_ROOT"/*; do
     ln -s "$dir" "$target"
     echo "Linked $name → $target"
 done
+
+systemctl enable --now ly.service

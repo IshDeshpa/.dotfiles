@@ -57,7 +57,7 @@ linux-headers
 lm4flash
 lshw
 luarocks
-ly-git
+ly
 mako
 man-db
 man-pages

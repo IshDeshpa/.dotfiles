@@ -24,12 +24,14 @@ linux
 linux-firmware
 linux-headers
 lshw
+ly
 man-db
 man-pages
 mesa-utils
 nano
 neovim
 networkmanager
+niri-git
 nm-connection-editor
 noto-fonts
 npm

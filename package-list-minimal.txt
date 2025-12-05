@@ -16,7 +16,6 @@ firefox-developer-edition
 git
 github-cli
 gnu-efi
-htop
 inetutils
 iwd
 kitty
@@ -56,6 +55,7 @@ tldr
 tmux
 tree
 ttf-fira-code
+ttf-jetbrains-mono-nerd
 udisks2
 unzip
 usbutils
@@ -65,7 +65,6 @@ wget
 which
 wl-clipboard
 wlr-randr
-woff2-font-awesome
 xdg-desktop-portal-gnome
 xdg-utils
 xorg-xwayland

@@ -4,7 +4,7 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
 spawn-at-startup "xwayland-satellite"
-spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/battery.sh"
+spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/scripts/battery.sh"
 spawn-sh-at-startup "swaybg -i /home/ishdeshpa/.dotfiles/dark-cat-rosewater.png"
 
 spawn-at-startup "bunnylol"
@@ -339,7 +339,7 @@ animations {
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
+    slowdown 0.5
 }
 
 // Window rules let you adjust behavior for individual windows.

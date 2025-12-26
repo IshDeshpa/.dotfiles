@@ -13,6 +13,7 @@ REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 DEST="$HOME/.config"
 
 case "$1" in
+    server)  PKG_FILE="$REPO_ROOT/package-list-server.txt" ;;
     minimal) PKG_FILE="$REPO_ROOT/package-list-minimal.txt" ;;
     base)    PKG_FILE="$REPO_ROOT/package-list-base.txt" ;;
     full)    PKG_FILE="$REPO_ROOT/package-list-full.txt" ;;

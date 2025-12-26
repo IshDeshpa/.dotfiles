@@ -123,7 +123,7 @@ ishdeshpa)
     # argument forwarded to restore.sh
     RESTORE_ARG="$1"
     [ -z "$RESTORE_ARG" ] && { 
-        echo "Usage: $0 ishdeshpa {minimal|base|full|/path/to/pkglist}"; 
+        echo "Usage: $0 ishdeshpa {server|minimal|base|full|/path/to/pkglist}"; 
         exit 1; 
     }
 

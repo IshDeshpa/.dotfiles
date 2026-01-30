@@ -9,14 +9,17 @@
   ],
   "modules-center": [
     "clock",
+    "custom/weather",
     "mpris"
   ],
   "modules-right": [
 //    "custom/pomodoro",
+    "custom/tailscale",
     "network",
     "pulseaudio",
     "backlight",
     "battery",
+    "custom/recording",
     "tray"
   ],
   "custom/workspaces": {
@@ -112,5 +115,33 @@
       "car": "󰄋",
       "default": ["󰕿", "󰖀", "󰕾"]
     }
-  }
+  },
+  "custom/recording": {
+    "format": "{}",
+    "return-type": "json",
+    "signal": 8,
+    "exec": "~/.dotfiles/scripts/check_screen_recording.sh",
+    "on-click": "~/.dotfiles/scripts/record-screen.sh",
+    "tooltip": false,
+  },
+  "custom/tailscale" : {
+    "exec": "~/.dotfiles/scripts/waybar-tailscale.sh --status",
+    "on-click": "exec ~/.dotfiles/scripts/waybar-tailscale.sh --toggle",
+    "exec-on-event": true,
+    "format": "VPN: {icon}",
+    "format-icons": {
+      "connected": "on",
+      "stopped": "off"
+    },
+    "tooltip": true,
+    "return-type": "json",
+    "interval": 3,
+  },
+  "custom/weather": {
+    "format": "{}°",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "wttrbar --ampm --location \"Austin, TX\" --fahrenheit --mph",
+    "return-type": "json"
+},
 }

@@ -12,6 +12,7 @@ bash-completion
 bash-language-server
 bat
 bear
+bind
 bitwarden
 bluetui
 bluez-utils
@@ -27,6 +28,7 @@ docker
 docker-buildx
 docker-compose
 dos2unix
+dosfstools
 downgrade
 doxygen
 droidcam
@@ -35,7 +37,6 @@ fabric-installer
 fastfetch
 fd
 feh
-firefox-developer-edition
 flatpak
 foomatic-db-gutenprint-ppds
 fprintd
@@ -54,6 +55,7 @@ gparted
 graphviz
 gutenprint
 gvfs
+hdparm
 htop
 imgcat
 inetutils
@@ -61,6 +63,8 @@ iw
 iwd
 kicad
 kitty
+kubectl
+kubectx
 legcord
 libreoffice-fresh
 linux
@@ -78,10 +82,10 @@ mesa-utils
 minecraft-launcher
 mkdocs
 mkdocs-material
-mullvad-vpn
 nano
 neovim
 networkmanager
+nfs-utils
 ngrok
 niri-git
 nm-connection-editor
@@ -93,6 +97,7 @@ openssh
 pandoc-cli
 parallel
 pavucontrol
+php
 picocom
 pipewire-pulse
 power-profiles-daemon
@@ -106,6 +111,7 @@ python-pyelftools
 python-pyserial
 qemu-full
 ripgrep
+rsync
 rustup
 saleae-logic2
 sl
@@ -122,6 +128,7 @@ sway-contrib
 swaybg
 swayidle
 swaylock-effects
+tailscale
 texlive-basic
 texlive-bibtexextra
 texlive-binextra
@@ -171,9 +178,11 @@ vulkan-radeon
 vulkan-tools
 vulkan-utility-libraries
 vulkan-validation-layers
+waterfox-bin
 waybar
 wget
 which
+wine
 wireless_tools
 wl-clipboard
 wlr-randr
@@ -183,6 +192,7 @@ xdg-utils
 xorg-xwayland
 xwayland-satellite-git
 yay
+yay-debug
 zip
 zoom
 zoxide

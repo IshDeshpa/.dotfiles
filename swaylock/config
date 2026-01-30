@@ -1,6 +1,6 @@
 color=24273a
-timestr=%R
-datestr=%a, %e of %B
+timestr=%I:%M %p
+datestr=%a, %e of %B 
 bs-hl-color=f4dbd6
 caps-lock-bs-hl-color=f4dbd6
 caps-lock-key-hl-color=a6da95

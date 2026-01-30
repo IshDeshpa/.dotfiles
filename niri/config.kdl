@@ -4,10 +4,8 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
 
 spawn-at-startup "xwayland-satellite"
-spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/scripts/battery.sh"
 spawn-sh-at-startup "swaybg -i /home/ishdeshpa/.dotfiles/dark-cat-rosewater.png"
 
-spawn-at-startup "bunnylol"
 spawn-at-startup "spotify"
 spawn-at-startup "slack"
 spawn-at-startup "legcord"
@@ -148,17 +146,14 @@ output "eDP-1" {
 // }
 
 output "DP-2" {
-    mode "1920x1080@59.950"
+    mode "1920x1080@60"
     scale 1.0
     position x=0 y=0
-    variable-refresh-rate // on-demand=true
-
-    background-color "#11111b"
 }
 
 output "DP-4" {
     mode "1920x1080@59.950"
-    scale 1.0
+    scale 2.0
     position x=2784 y=0
     variable-refresh-rate // on-demand=true
 
@@ -361,7 +356,7 @@ window-rule {
     // This app-id regular expression will work for both:
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox-developer-edition$"# title="^Picture-in-Picture$"
+    match app-id=r#"waterfox$"# title="^Picture-in-Picture$"
     open-floating true
 }
 
@@ -404,9 +399,9 @@ binds {
     Mod+T { spawn "kitty"; }
     Mod+Space { spawn "fuzzel"; }
     Mod+Alt+L { spawn "swaylock" "--clock" "--indicator" "--screenshots" "--effect-scale" "0.4" "--effect-vignette" "0.2:0.5" "--effect-blur" "4x2"; }
-    Mod+Alt+F { spawn "firefox-developer-edition"; }
+    Mod+Alt+F { spawn "waterfox"; }
     Mod+Alt+M { spawn-sh "/home/ishdeshpa/.dotfiles/niri/open.sh spotify"; }
-
+    Mod+Print {spawn-sh "/home/ishdeshpa/.dotfiles/scripts/record-screen.sh"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.

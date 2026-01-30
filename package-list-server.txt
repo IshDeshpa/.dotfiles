@@ -21,6 +21,7 @@ neovim
 networkmanager
 openssh
 ripgrep
+rsync
 sudo
 tldr
 tmux
@@ -31,4 +32,3 @@ wget
 which
 zip
 zoxide
-

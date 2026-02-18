@@ -15,6 +15,8 @@ alias vi='nvim'
 alias vim='nvim'
 alias vih='nvim ~/mnt/home.md'
 
+alias ll='ls -lha'
+
 alias cd='z'
 alias cdi='zi'
 alias firefox='firefox-developer-edition'
@@ -34,5 +36,7 @@ export UV_CACHE_DIR=/mnt/.uvcache
 export EDITOR=nvim
 
 alias ff='fastfetch --logo /home/ishdeshpa/.dotfiles/archppuccin.png --logo-width 30 --logo-height 15' 
+
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 ff

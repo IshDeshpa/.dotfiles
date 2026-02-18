@@ -4,7 +4,8 @@
   "height": 20,
   "spacing": 0,
   "modules-left": [
-    "niri/workspaces"
+    "niri/workspaces",
+    "niri/window"
 //    "wlr/taskbar"
   ],
   "modules-center": [
@@ -14,8 +15,9 @@
   ],
   "modules-right": [
 //    "custom/pomodoro",
-    "custom/tailscale",
     "network",
+    "custom/tailscale",
+    "custom/timer",
     "pulseaudio",
     "backlight",
     "battery",
@@ -143,5 +145,24 @@
     "interval": 3600,
     "exec": "wttrbar --ampm --location \"Austin, TX\" --fahrenheit --mph",
     "return-type": "json"
-},
+  },
+  "niri/window": {
+    "format": "{}",
+  },
+  "custom/timer": {
+    "exec": "/home/ishdeshpa/.dotfiles/waybar/waybar_timer hook",
+    "exec-on-event": false,
+    "return-type": "json",
+    "format": "{icon} {0}",
+    "format-icons": {
+      "standby": "󰔟",
+      "running": "󰔛",
+      "paused": "󰏤"
+    },
+    "on-click": "/home/ishdeshpa/.dotfiles/waybar/waybar_timer new 25 'notify-send \"Session finished\"'",
+    "on-click-middle": "/home/ishdeshpa/.dotfiles/waybar/waybar_timer cancel",
+    "on-click-right": "/home/ishdeshpa/.dotfiles/waybar/waybar_timer togglepause",
+    "on-scroll-up": "/home/ishdeshpa/.dotfiles/waybar/waybar_timer increase 60 || /home/ishdeshpa/.dotfiles/waybar/waybar_timer new 1 'notify-send -u critical \"Timer expired\"'",
+    "on-scroll-down": "/home/ishdeshpa/.dotfiles/waybar/waybar_timer decrease 60"
+  }
 }

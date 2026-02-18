@@ -22,6 +22,12 @@ tooltip {
     border-color: #11111b;
 }
 
+.timer {
+    color: #fc5b46;
+    margin: 0 5px;
+    padding: 0 5px;
+}
+
 tooltip label {
     color: #eeeeee;
 }

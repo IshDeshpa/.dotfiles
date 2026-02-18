@@ -5,6 +5,7 @@
 
 spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "swaybg -i /home/ishdeshpa/.dotfiles/dark-cat-rosewater.png"
+spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/waybar/waybar_timer serve"
 
 spawn-at-startup "spotify"
 spawn-at-startup "slack"

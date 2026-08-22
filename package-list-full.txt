@@ -85,6 +85,7 @@ mkdocs-material
 nano
 neovim
 networkmanager
+hyprpolkitagent
 nfs-utils
 ngrok
 niri-git

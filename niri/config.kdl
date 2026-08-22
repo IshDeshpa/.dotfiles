@@ -7,17 +7,9 @@ spawn-at-startup "xwayland-satellite"
 spawn-sh-at-startup "swaybg -i /home/ishdeshpa/.dotfiles/dark-cat-rosewater.png"
 spawn-sh-at-startup "/home/ishdeshpa/.dotfiles/waybar/waybar_timer serve"
 
-spawn-at-startup "spotify"
-spawn-at-startup "slack"
-spawn-at-startup "legcord"
-
 workspace "control-deck"
 window-rule {
     match at-startup=true app-id="spotify"
-    open-on-workspace "control-deck"
-}
-window-rule {
-    match at-startup=true app-id="slack"
     open-on-workspace "control-deck"
 }
 window-rule {
@@ -134,7 +126,7 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1280 y=0
+    position x=0 y=0
     background-color "#11111b"
     backdrop-color "#11111b"
 }
@@ -147,19 +139,20 @@ output "eDP-1" {
 // }
 
 output "DP-2" {
-    mode "1920x1080@60"
+    mode "1920x1080@60.000"
     scale 1.0
-    position x=0 y=0
+    position x=1504 y=0
 }
 
-output "DP-4" {
-    mode "1920x1080@59.950"
-    scale 2.0
-    position x=2784 y=0
-    variable-refresh-rate // on-demand=true
+// output "DP-4" {
+//     mode "1920x1080@59.950"
+//     scale 2.0
+//     position x=2784 y=0
+//     variable-refresh-rate // on-demand=true
+//
+//     background-color "#11111b"
+// }
 
-    background-color "#11111b"
-}
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -381,6 +374,23 @@ window-rule {
     clip-to-geometry true
 }
 
+window-rule {
+    match app-id="^Spotify$"
+    opacity 0.7
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id="^discord$"
+    opacity 0.7
+    draw-border-with-background false
+    background-effect {
+        blur true
+    }
+}
+
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -403,6 +413,7 @@ binds {
     Mod+Alt+F { spawn "waterfox"; }
     Mod+Alt+M { spawn-sh "/home/ishdeshpa/.dotfiles/niri/open.sh spotify"; }
     Mod+Print {spawn-sh "/home/ishdeshpa/.dotfiles/scripts/record-screen.sh"; }
+    Mod+P repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.

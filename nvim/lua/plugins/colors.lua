@@ -5,13 +5,17 @@ return {
     priority = 1000,
     opts = {
       flavour = "mocha", -- default
+      transparent_background = true,
+      float = {
+        transparent = true,
+      },
     },
     config = function(_, opts)
       local catppuccin = require("catppuccin")
 
       -- Setup and load the default colorscheme
       catppuccin.setup(opts)
-      vim.cmd.colorscheme("catppuccin")
+      vim.cmd.colorscheme("catppuccin-nvim")
 
       -- Helper function to find index of value in a table
       local function index_of(tbl, val)
@@ -31,8 +35,9 @@ return {
       vim.keymap.set("n", "<leader>ut", function()
         current_index = (current_index % #flavours) + 1
         local flavour = flavours[current_index]
-        catppuccin.setup({ flavour = flavour })
-        vim.cmd.colorscheme("catppuccin")
+        opts.flavour = flavour
+        catppuccin.setup(opts)
+        vim.cmd.colorscheme("catppuccin-nvim")
         vim.notify("Catppuccin theme: " .. flavour, vim.log.levels.INFO)
       end, { desc = "Cycle Catppuccin theme" })
     end,
@@ -41,7 +46,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-nvim",
     },
   },
 }

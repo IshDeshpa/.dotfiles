@@ -68,6 +68,7 @@ mkdocs-material
 nano
 neovim
 networkmanager
+hyprpolkitagent
 ngrok
 niri-git
 nm-connection-editor

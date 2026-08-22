@@ -78,12 +78,13 @@ tooltip label {
 #clock,
 #pulseaudio,
 #network,
+#bluetooth,
 #tray,
 #temperature,
 #workspaces,
 #backlight,
 #custom-pomodoro {
-    background: rgba(26, 27, 38, 0.7);
+    background: transparent;
     opacity: 1;
     padding: 0px 10px;
     margin: 1px 0px;
@@ -170,6 +171,11 @@ tooltip label {
 
 #network {
     color: #7DCFFF;
+}
+
+#bluetooth {
+    color: #BB9AF7;
+    border-radius: 0;
 }
 
 #backlight {

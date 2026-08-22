@@ -4,8 +4,10 @@ return {
   opts = {
     -- add options here
     -- or leave it empty to use the default settings
-    dir_path = ".",
-    relative_to_current_file = "true"
+    default = {
+      dir_path = ".",
+      relative_to_current_file = true
+    }
   },
   keys = {
     -- suggested keymap

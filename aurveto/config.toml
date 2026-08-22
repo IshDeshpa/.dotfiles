@@ -1,0 +1,33 @@
+delay_days = 14
+delay_mode = "lag"
+helper = "yay"
+use_aur_scan = true
+whitelist = [
+    "google-chrome",
+    "google-chrome-beta",
+    "microsoft-edge-stable-bin",
+    "brave-bin",
+    "zen-browser-bin",
+    "android-studio",
+    "cursor-bin",
+    "visual-studio-code-bin",
+    "vscodium-bin",
+    "spotify",
+    "discord",
+    "slack-desktop",
+    "zoom",
+    "1password",
+    "dropbox",
+]
+
+[ai]
+enabled = false
+provider = "groq"
+model = ""
+api_key_env = ""
+confirm_votes = 3
+
+[notify]
+enabled = false
+interval_hours = 6
+silent_when_up_to_date = true

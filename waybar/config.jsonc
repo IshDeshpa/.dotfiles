@@ -19,6 +19,7 @@
     "custom/tailscale",
     "custom/timer",
     "pulseaudio",
+    "bluetooth",
     "backlight",
     "battery",
     "custom/recording",
@@ -98,7 +99,20 @@
     "tooltip-format-ethernet": "󰈀 {ifname}",
     "tooltip-format-disconnected": "󰤮 Disconnected",
     "max-length": 40,
+    "on-click": "kitty --title Network bash -ic 'nm'",
     "on-click-right": "nm-connection-editor" 
+  },
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱 {num_connections}",
+    "format-no-controller": "󰂲",
+    "tooltip-format": "{controller_alias}: {status}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "on-click": "kitty --title Bluetooth bash -ic 'bt'"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",

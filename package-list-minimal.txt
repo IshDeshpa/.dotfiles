@@ -30,6 +30,7 @@ mesa-utils
 nano
 neovim
 networkmanager
+hyprpolkitagent
 niri-git
 nm-connection-editor
 noto-fonts

@@ -434,7 +434,8 @@ binds {
     XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
     XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
 
-    Mod+Q { close-window; }
+    Mod+Q { spawn "/home/ishdeshpa/.dotfiles/scripts/close-window-and-remember.sh"; }
+    Mod+Shift+T { spawn "/home/ishdeshpa/.dotfiles/scripts/reopen-last-closed-app.sh"; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }

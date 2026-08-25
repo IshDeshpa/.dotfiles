@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   # This module is deliberately independent of the physical machine's disk
@@ -15,14 +15,27 @@
     device = "/dev/vda";
   };
 
-  networking.hostName = "nix-vm";
-  virtualisation = {
-    memorySize = 4096;
-    cores = 4;
-    diskSize = 16384;
-    qemu.options = [
-      "-display gtk,gl=on"
-      "-device virtio-vga-gl"
-    ];
+  networking.hostName = lib.mkForce "nix-vm";
+  # Disposable VM credential only; do not reuse it outside this guest.
+  users.users.ishdeshpa.password = "nixos";
+  services.fprintd.enable = false;
+  security.pam.services.login.fprintAuth = false;
+  security.pam.services.ly = {
+    fprintAuth = false;
+    unixAuth = true;
+    enableGnomeKeyring = false;
+  };
+  security.pam.services.login.enableGnomeKeyring = false;
+  virtualisation.vmVariant = {
+    virtualisation = {
+      memorySize = 4096;
+      cores = 4;
+      diskSize = 16384;
+      qemu.package = pkgs.qemu_full;
+      qemu.options = [
+        "-display" "sdl,gl=on"
+        "-device" "virtio-vga-gl"
+      ];
+    };
   };
 }

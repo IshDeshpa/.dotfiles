@@ -33,6 +33,9 @@ in
   ];
 
   home.file = {
+    # Several existing configs intentionally use absolute ~/.dotfiles paths
+    # for startup scripts and assets; preserve those paths inside the VM too.
+    ".dotfiles" = cfg ".";
     ".bashrc" = cfg ".bashrc";
     ".tmux.conf" = cfg ".tmux.conf";
     ".config/starship.toml" = cfg "starship.toml";
@@ -69,7 +72,6 @@ in
   };
 
   programs.home-manager.enable = true;
-  programs.bash.enable = true;
   programs.git.enable = true;
   programs.starship.enable = true;
   programs.zoxide.enable = true;

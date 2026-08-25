@@ -2,9 +2,9 @@
 # This file is documentation, not imported by the system configuration.
 {
   sourceFiles = [
-    ../package-list-minimal.txt
-    ../package-list-base.txt
-    ../package-list-full.txt
-    ../package-list-server.txt
+    ./dotfiles/package-list-minimal.txt
+    ./dotfiles/package-list-base.txt
+    ./dotfiles/package-list-full.txt
+    ./dotfiles/package-list-server.txt
   ];
 }

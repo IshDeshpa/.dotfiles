@@ -13,7 +13,7 @@
     in {
       nixosConfigurations.arch-fw = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { dotfiles = ../.; };
+        specialArgs = { dotfiles = ./dotfiles; };
         modules = [
           ./configuration.nix
           ./hardware-configuration.nix
@@ -21,6 +21,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { dotfiles = ./dotfiles; };
             home-manager.users.ishdeshpa = import ./home.nix;
           }
         ];
@@ -28,7 +29,7 @@
 
       nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { dotfiles = ../.; };
+        specialArgs = { dotfiles = ./dotfiles; };
         modules = [
           ./configuration.nix
           ./vm.nix
@@ -36,6 +37,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { dotfiles = ./dotfiles; };
             home-manager.users.ishdeshpa = import ./home.nix;
           }
         ];

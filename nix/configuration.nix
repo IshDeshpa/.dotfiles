@@ -48,7 +48,6 @@ in
 
   environment.systemPackages = with pkgs; [
     _7zz
-    amd-ucode
     bash-completion
     brightnessctl
     dmidecode

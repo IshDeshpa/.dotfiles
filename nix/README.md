@@ -1,8 +1,9 @@
 # NixOS bootstrap
 
-This directory is a first-pass NixOS translation of the Arch installation in
-the parent directory. The `arch-fw` configuration reuses the checked-out
-desktop, shell, editor, wallpaper, and user-service files through Home Manager.
+This directory is a self-contained NixOS translation of the desktop setup.
+The `dotfiles/` subdirectory contains the configs, scripts, editor files,
+plugins, and assets consumed by Home Manager. The parent Arch dotfiles are kept
+separately as the current system source of truth.
 
 ## Build and test
 
@@ -29,13 +30,29 @@ use the physical machine's disk declarations and is safe to rebuild or delete:
 ```sh
 nix build .#nixosConfigurations.arch-fw.config.system.build.vm
 nix build .#nixosConfigurations.vm.config.system.build.vm
-./result/bin/run-nix-vm
+./result/bin/run-nix-vm-vm
 ```
 
 The generated runner uses a 4-core, 4 GiB VM with a 16 GiB virtual disk. It
 uses a graphical QEMU display so the Ly/Niri session can be exercised. KVM is
 used automatically when available; if it is unavailable, edit the generated
-runner invocation to use TCG acceleration.
+ runner invocation to use TCG acceleration.
+
+The disposable VM credential is `ishdeshpa` / `nixos`. Fingerprint auth is
+disabled in the VM so Ly exercises ordinary Unix password authentication.
+
+On Arch, use the host-QEMU wrapper for graphics. The generated Nix QEMU binary
+expects NixOS's `/run/opengl-driver` layout, while Arch provides Mesa under
+`/usr`. For a VNC-backed accelerated display:
+
+```sh
+./run-vm-host-qemu.sh \
+  -display egl-headless,rendernode=/dev/dri/renderD128 \
+  -vnc :1
+vncviewer 127.0.0.1:1
+```
+
+For a normal host window, try `./run-vm-host-qemu.sh -display sdl,gl=on`.
 
 To test only evaluation and activation without opening a graphical window:
 

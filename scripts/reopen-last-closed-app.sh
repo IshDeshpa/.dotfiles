@@ -9,7 +9,8 @@ if [[ ! -s "$STATE_FILE" ]]; then
     exit 0
 fi
 
-APP_ID=$(<"$STATE_FILE")
+APP_ID=$(sed -n '1p' "$STATE_FILE")
+WORKING_DIR=$(sed -n '2p' "$STATE_FILE")
 
 desktop_entry_for_app_id() {
     local app_id_lower=${1,,}
@@ -43,7 +44,12 @@ desktop_entry_for_app_id() {
         -maxdepth 1 -type f -name '*.desktop' -print0 2>/dev/null)
 }
 
-if DESKTOP_ID=$(desktop_entry_for_app_id "$APP_ID"); then
+if [[ "${APP_ID,,}" == kitty ]]; then
+    COMMAND=(kitty)
+    if [[ -n "$WORKING_DIR" && -d "$WORKING_DIR" ]]; then
+        COMMAND+=(--directory "$WORKING_DIR")
+    fi
+elif DESKTOP_ID=$(desktop_entry_for_app_id "$APP_ID"); then
     if gtk-launch "$DESKTOP_ID" >/dev/null 2>&1 & then
         exit 0
     fi
@@ -51,7 +57,6 @@ fi
 
 case "${APP_ID,,}" in
     kitty)
-        COMMAND=(kitty)
         ;;
     waterfox|*waterfox*)
         COMMAND=(waterfox)

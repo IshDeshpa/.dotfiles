@@ -9,7 +9,8 @@ if [[ ! -s "$STATE_FILE" ]]; then
     exit 0
 fi
 
-APP_ID=$(<"$STATE_FILE")
+APP_ID=$(sed -n '1p' "$STATE_FILE")
+WORKING_DIR=$(sed -n '2p' "$STATE_FILE")
 
 desktop_entry_for_app_id() {
     local app_id_lower=${1,,}
@@ -29,14 +30,22 @@ desktop_entry_for_app_id() {
     done < <(find "$HOME/.local/share/applications" /usr/share/applications "$HOME/.local/share/flatpak/exports/share/applications" /var/lib/flatpak/exports/share/applications -maxdepth 1 -type f -name '*.desktop' -print0 2>/dev/null)
 }
 
-if DESKTOP_ID=$(desktop_entry_for_app_id "$APP_ID"); then
+if [[ "${APP_ID,,}" != kitty ]] && DESKTOP_ID=$(desktop_entry_for_app_id "$APP_ID"); then
     if gtk-launch "$DESKTOP_ID" >/dev/null 2>&1 & then
         exit 0
     fi
 fi
 
+if [[ "${APP_ID,,}" == kitty ]]; then
+    COMMAND=(kitty)
+    if [[ -n "$WORKING_DIR" && -d "$WORKING_DIR" ]]; then
+        COMMAND+=(--directory "$WORKING_DIR")
+    fi
+fi
+
 case "${APP_ID,,}" in
-    kitty) COMMAND=(kitty) ;;
+    kitty)
+        ;;
     waterfox|*waterfox*) COMMAND=(waterfox) ;;
     firefox|*firefox*|org.mozilla.firefox) COMMAND=(firefox-developer-edition) ;;
     chromium|*chromium*) COMMAND=(chromium) ;;

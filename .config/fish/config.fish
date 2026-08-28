@@ -1,0 +1,1 @@
+../../nix/dotfiles/.config/fish/config.fish

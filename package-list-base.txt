@@ -8,6 +8,7 @@ arm-none-eabi-newlib
 base
 base-devel
 bash-completion
+fish
 bash-language-server
 bat
 bitwarden

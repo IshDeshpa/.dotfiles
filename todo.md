@@ -36,7 +36,7 @@ yay -S --needed hyprpolkitagent
 systemctl --user add-wants niri.service hyprpolkitagent.service
 ```
 
-This belongs beside the existing Mako, Waybar, Swayidle, and Nirinit units in
+This belongs beside the existing Mako, Waybar, and Swayidle units in
 `systemd/user/niri.service.wants/`.
 
 ### 2. Repair the idle service
@@ -83,7 +83,7 @@ notes](https://github.com/YaLTeR/niri/discussions/2317).
 
 The current install path calls missing `scripts/config-ln.sh`; the real script
 appears to be `scripts/config.sh`. The package manifests also do not yet include
-new additions such as Nirinit. Before trusting a reinstall:
+new additions. Before trusting a reinstall:
 
 - fix the stale script name;
 - separate explicit repository packages and AUR packages;
@@ -314,7 +314,6 @@ Back up at least:
 ~/mnt/vault
 ~/.ssh
 ~/.local/share/atuin       # if Atuin is added without sync
-~/.local/share/nirinit
 ```
 
 Store repository credentials with systemd credentials, a password manager, or
@@ -371,7 +370,7 @@ accidentally link non-config directories such as `scripts`, package metadata, or
 future documentation. Replace it with an explicit manifest:
 
 ```bash
-configs=(fastfetch fuzzel kitty mako niri nirinit nvim swaylock waybar)
+configs=(fastfetch fuzzel kitty mako niri nvim swaylock waybar)
 ```
 
 Handle `.bashrc`, Starship, tmux, and systemd units explicitly. Explicit lists

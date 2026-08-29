@@ -6,6 +6,7 @@ arm-none-eabi-newlib
 base
 base-devel
 bash-completion
+fish
 bitwarden
 bluez-utils
 brightnessctl

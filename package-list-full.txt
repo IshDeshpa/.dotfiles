@@ -9,6 +9,7 @@ arm-none-eabi-picolibc
 base
 base-devel
 bash-completion
+fish
 bash-language-server
 bat
 bear

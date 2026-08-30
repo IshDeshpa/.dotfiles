@@ -425,3 +425,18 @@ waybar/
 
 That set would noticeably improve daily use without replacing the character of
 the current setup.
+
+## Follow-up audit: Arch config links and paths
+
+- Replace the wildcard directory loop in `scripts/config.sh` with an explicit
+  Arch config manifest. It currently links every top-level directory, including
+  `scripts` and other non-config content.
+- Fix stale references to missing `~/.dotfiles/volume.sh` in
+  `waybar/config.jsonc`; the repository currently has no `volume.sh`.
+- Fix the missing `/home/ishdeshpa/.dotfiles/backlight.sh` reference in
+  `niri/config.kdl`, or provide the intended script.
+- Remove or repair the live `~/.config/cleanup.sh` link, which currently points
+  to the nonexistent `~/.dotfiles/cleanup.sh` instead of `scripts/cleanup.sh`.
+- Clean up stale runtime application symlinks under `~/.config` when convenient;
+  at least the ClickUp `SingletonSocket` link currently resolves to a missing
+  `/tmp` path.

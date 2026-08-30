@@ -51,7 +51,7 @@ mkdir -p "${icons_dir}"
 
 download_icon() {
     local id="$1"
-    local slug="$2"
+    local icon_url="$2"
     local icon_path="${icons_dir}/${id}.svg"
 
     if [[ -s "${icon_path}" ]]; then
@@ -60,9 +60,9 @@ download_icon() {
     fi
 
     if command -v curl >/dev/null 2>&1 &&
-        curl --fail --silent --show-error --location \
+        curl --fail --silent --location \
             --output "${icon_path}" \
-            "https://cdn.simpleicons.org/${slug}"; then
+            "${icon_url}"; then
         printf '%s\n' "${icon_path}"
     else
         rm -f "${icon_path}"
@@ -111,14 +111,15 @@ EOF
 }
 
 # Local services. These are the usual ports for the listed images.
-write_launcher "bazarr" "Bazarr" "${BAZARR_URL:-http://127.0.0.1:6767}" "AudioVideo;Network" "app" "$(download_icon bazarr bazarr)"
-write_launcher "sonarr" "Sonarr" "${SONARR_URL:-http://127.0.0.1:8989}" "AudioVideo;Network" "app" "$(download_icon sonarr sonarr)"
-write_launcher "transmission" "Transmission" "${TRANSMISSION_URL:-http://127.0.0.1:9091}" "Network;FileTransfer" "app" "$(download_icon transmission transmission)"
-write_launcher "prowlarr" "Prowlarr" "${PROWLARR_URL:-http://127.0.0.1:9696}" "AudioVideo;Network" "app" "$(download_icon prowlarr prowlarr)"
-write_launcher "radarr" "Radarr" "${RADARR_URL:-http://127.0.0.1:7878}" "AudioVideo;Network" "app" "$(download_icon radarr radarr)"
-write_launcher "kapowarr" "Kapowarr" "${KAPOWARR_URL:-http://127.0.0.1:5656}" "AudioVideo;Network" "app" "$(download_icon kapowarr kapowarr)"
-write_launcher "seerr" "Seerr" "${SEERR_URL:-http://127.0.0.1:5055}" "AudioVideo;Network" "app" "$(download_icon seerr seerr)"
-write_launcher "jellyfin" "Jellyfin" "${JELLYFIN_URL:-http://127.0.0.1:8096}" "AudioVideo;Network" "app" "$(download_icon jellyfin jellyfin)"
+icon_base_url="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg"
+write_launcher "bazarr" "Bazarr" "${BAZARR_URL:-http://127.0.0.1:6767}" "AudioVideo;Network" "app" "$(download_icon bazarr "${icon_base_url}/bazarr.svg")"
+write_launcher "sonarr" "Sonarr" "${SONARR_URL:-http://127.0.0.1:8989}" "AudioVideo;Network" "app" "$(download_icon sonarr "${icon_base_url}/sonarr.svg")"
+write_launcher "transmission" "Transmission" "${TRANSMISSION_URL:-http://127.0.0.1:9091}" "Network;FileTransfer" "app" "$(download_icon transmission "${icon_base_url}/transmission.svg")"
+write_launcher "prowlarr" "Prowlarr" "${PROWLARR_URL:-http://127.0.0.1:9696}" "AudioVideo;Network" "app" "$(download_icon prowlarr "${icon_base_url}/prowlarr.svg")"
+write_launcher "radarr" "Radarr" "${RADARR_URL:-http://127.0.0.1:7878}" "AudioVideo;Network" "app" "$(download_icon radarr "${icon_base_url}/radarr.svg")"
+write_launcher "kapowarr" "Kapowarr" "${KAPOWARR_URL:-http://127.0.0.1:5656}" "AudioVideo;Network" "app" "$(download_icon kapowarr "${icon_base_url}/kapowarr.svg")"
+write_launcher "seerr" "Seerr" "${SEERR_URL:-http://127.0.0.1:5055}" "AudioVideo;Network" "app" "$(download_icon seerr "${icon_base_url}/seerr.svg")"
+write_launcher "jellyfin" "Jellyfin" "${JELLYFIN_URL:-http://127.0.0.1:8096}" "AudioVideo;Network" "app" "$(download_icon jellyfin "${icon_base_url}/jellyfin.svg")"
 
 # Native clients. Keep the URL argument as the executable so write_launcher
 # can generate the .desktop file without another templating function.
@@ -130,13 +131,13 @@ if command -v audiotube >/dev/null 2>&1; then
 fi
 
 # Streaming services.
-write_launcher "max" "HBO Max" "https://www.max.com/" "AudioVideo;Network" "app" "$(download_icon max max)"
-write_launcher "hulu" "Hulu" "https://www.hulu.com/" "AudioVideo;Network" "app" "$(download_icon hulu hulu)"
-write_launcher "netflix" "Netflix" "https://www.netflix.com/" "AudioVideo;Network" "app" "$(download_icon netflix netflix)"
-write_launcher "youtube" "YouTube" "https://www.youtube.com/" "AudioVideo;Network" "app" "$(download_icon youtube youtube)"
-write_launcher "disney-plus" "Disney+" "https://www.disneyplus.com/" "AudioVideo;Network" "app" "$(download_icon disney-plus disneyplus)"
-write_launcher "prime-video" "Prime Video" "https://www.primevideo.com/" "AudioVideo;Network" "app" "$(download_icon prime-video primevideo)"
-write_launcher "apple-tv" "Apple TV" "https://tv.apple.com/" "AudioVideo;Network" "app" "$(download_icon apple-tv appletv)"
+write_launcher "max" "HBO Max" "https://www.max.com/" "AudioVideo;Network" "app" "$(download_icon max "${icon_base_url}/max.svg")"
+write_launcher "hulu" "Hulu" "https://www.hulu.com/" "AudioVideo;Network" "app" "$(download_icon hulu "${icon_base_url}/hulu.svg")"
+write_launcher "netflix" "Netflix" "https://www.netflix.com/" "AudioVideo;Network" "app" "$(download_icon netflix "${icon_base_url}/netflix.svg")"
+write_launcher "youtube" "YouTube" "https://www.youtube.com/" "AudioVideo;Network" "app" "$(download_icon youtube "${icon_base_url}/youtube.svg")"
+write_launcher "disney-plus" "Disney+" "https://www.disneyplus.com/" "AudioVideo;Network" "app" "$(download_icon disney-plus "${icon_base_url}/disney-plus.svg")"
+write_launcher "prime-video" "Prime Video" "https://www.primevideo.com/" "AudioVideo;Network" "app" "$(download_icon prime-video "${icon_base_url}/prime-video.svg")"
+write_launcher "apple-tv" "Apple TV" "https://tv.apple.com/" "AudioVideo;Network" "app" "$(download_icon apple-tv "${icon_base_url}/apple-tv.svg")"
 
 if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database "${applications_dir}" >/dev/null 2>&1 || true

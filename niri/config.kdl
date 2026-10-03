@@ -411,7 +411,7 @@ binds {
     Mod+Space { spawn "fuzzel"; }
     Mod+Alt+L { spawn "swaylock" "--clock" "--indicator" "--screenshots" "--effect-scale" "0.4" "--effect-vignette" "0.2:0.5" "--effect-blur" "4x2"; }
     Mod+Alt+F { spawn "waterfox"; }
-    Mod+Alt+M { spawn-sh "/home/ishdeshpa/.dotfiles/niri/open.sh spotify"; }
+    Mod+Alt+M { spawn-sh "/home/ishdeshpa/.dotfiles/niri/open.sh spotifast"; }
     Mod+Print {spawn-sh "/home/ishdeshpa/.dotfiles/scripts/record-screen.sh"; }
     Mod+P repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
 
@@ -434,8 +434,7 @@ binds {
     XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
     XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
 
-    Mod+Q { spawn "/home/ishdeshpa/.dotfiles/scripts/close-window-and-remember.sh"; }
-    Mod+Shift+T { spawn "/home/ishdeshpa/.dotfiles/scripts/reopen-last-closed-app.sh"; }
+    Mod+Q { close-window; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }

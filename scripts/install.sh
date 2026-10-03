@@ -105,9 +105,34 @@ root)
         echo "%wheel ALL=(ALL:ALL) ALL" >> /etc/sudoers
     fi
 
-    pacman -Sy grub efibootmgr
-    grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-    grub-mkconfig -o /boot/grub/grub.cfg
+    # Install and configure systemd-boot on the mounted EFI system partition.
+    # The root PARTUUID is discovered here so the generated entry works for
+    # both newly partitioned and pre-existing drives.
+    pacman -Sy --needed systemd linux
+
+    ROOT_SOURCE="$(findmnt --noheadings --output SOURCE /)"
+    ROOT_PARTUUID="$(findmnt --noheadings --output PARTUUID /)"
+
+    if [ -z "$ROOT_PARTUUID" ]; then
+        echo "Could not determine the root partition PARTUUID for $ROOT_SOURCE."
+        exit 1
+    fi
+
+    bootctl --esp-path=/boot install
+    install -d /boot/loader/entries
+
+    printf '%s\n' \
+        'default arch.conf' \
+        'timeout 5' \
+        'auto-entries no' \
+        > /boot/loader/loader.conf
+
+    printf '%s\n' \
+        'title Arch Linux' \
+        'linux /vmlinuz-linux' \
+        'initrd /initramfs-linux.img' \
+        "options root=PARTUUID=$ROOT_PARTUUID rw" \
+        > /boot/loader/entries/arch.conf
 
     su - ishdeshpa
     ;;
@@ -136,7 +161,7 @@ ishdeshpa)
 
     # run restore script with argument
     "$SCRIPT_DIR/restore-packages.sh" "$RESTORE_ARG"
-    "$SCRIPT_DIR/config-ln.sh"
+    "$SCRIPT_DIR/config.sh"
     ;;
 
 ############################################

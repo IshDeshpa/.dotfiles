@@ -142,7 +142,8 @@
   },
   "custom/tailscale" : {
     "exec": "/home/ishdeshpa/.dotfiles/scripts/waybar-tailscale.sh --status",
-    "on-click": "sh -c '/home/ishdeshpa/.dotfiles/scripts/waybar-tailscale.sh --toggle >/dev/null 2>&1 &'",
+    "on-click": "sh -c '/home/ishdeshpa/.dotfiles/scripts/waybar-tailscale.sh --random >/dev/null 2>&1 &'",
+    "on-click-right": "/home/ishdeshpa/.dotfiles/scripts/waybar-tailscale.sh --menu",
     "exec-on-event": true,
     "signal": 9,
     "format": "{icon}",

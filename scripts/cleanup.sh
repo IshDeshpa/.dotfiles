@@ -106,7 +106,7 @@ bytes_before=$(available_bytes)
 run_step 'Removing orphaned packages' remove_orphans
 
 if command -v paccache >/dev/null 2>&1; then
-    run_step 'Keeping the two newest cached versions of installed packages' sudo paccache -rk2
+    run_step 'Keeping only the newest cached version of installed packages' sudo paccache -rk1
     run_step 'Removing cached packages that are no longer installed' sudo paccache -ruk0
 fi
 

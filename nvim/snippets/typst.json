@@ -1,0 +1,102 @@
+{
+  "Heading": {
+    "prefix": "h1",
+    "body": "= ${1:Heading}\n$0",
+    "description": "Level 1 heading"
+  },
+  "Subheading": {
+    "prefix": "h2",
+    "body": "== ${1:Heading}\n$0",
+    "description": "Level 2 heading"
+  },
+  "Subsubheading": {
+    "prefix": "h3",
+    "body": "=== ${1:Heading}\n$0",
+    "description": "Level 3 heading"
+  },
+  "Strong emphasis": {
+    "prefix": "bold",
+    "body": "*${1:text}*$0",
+    "description": "Bold text"
+  },
+  "Emphasis": {
+    "prefix": "emph",
+    "body": "_${1:text}_$0",
+    "description": "Emphasized text"
+  },
+  "Link": {
+    "prefix": "link",
+    "body": "#link(\"${1:https://example.com}\")[${2:text}]$0",
+    "description": "Link with display text"
+  },
+  "Code block": {
+    "prefix": "code",
+    "body": ["```${1:typst}", "${2:code}", "```", "$0"],
+    "description": "Fenced code block"
+  },
+  "Inline math": {
+    "prefix": "mk",
+    "body": "\\$${1:x}\\$$0",
+    "description": "Inline math equation"
+  },
+  "Display math": {
+    "prefix": "dm",
+    "body": ["\\$", "  ${1:x = y}", "\\$", "$0"],
+    "description": "Display math equation"
+  },
+  "Fraction": {
+    "prefix": "frac",
+    "body": "frac(${1:a}, ${2:b})$0",
+    "description": "Fraction (inside math mode)"
+  },
+  "Square root": {
+    "prefix": "sqrt",
+    "body": "sqrt(${1:x})$0",
+    "description": "Square root (inside math mode)"
+  },
+  "Summation": {
+    "prefix": "sum",
+    "body": "sum_(${1:i = 1})^${2:n} ${3:a_i}$0",
+    "description": "Summation (inside math mode)"
+  },
+  "Integral": {
+    "prefix": "int",
+    "body": "integral_${1:a}^${2:b} ${3:f(x)} dif ${4:x}$0",
+    "description": "Definite integral (inside math mode)"
+  },
+  "Matrix": {
+    "prefix": "mat",
+    "body": ["mat(", "  ${1:a}, ${2:b};", "  ${3:c}, ${4:d}", ")$0"],
+    "description": "2 by 2 matrix (inside math mode)"
+  },
+  "Cases": {
+    "prefix": "cases",
+    "body": ["cases(", "  ${1:x} & \"if\" ${2:x >= 0},", "  ${3:-x} & \"otherwise\",", ")$0"],
+    "description": "Piecewise expression (inside math mode)"
+  },
+  "Figure": {
+    "prefix": "fig",
+    "body": ["#figure(", "  image(\"${1:image.png}\", width: ${2:80%}),", "  caption: [${3:Caption}],", ") <${4:fig-label}>", "$0"],
+    "description": "Image figure with caption and label"
+  },
+  "Table": {
+    "prefix": "table",
+    "body": ["#table(", "  columns: (1fr, 1fr),", "  table.header([${1:Column 1}], [${2:Column 2}]),", "  [${3:A}], [${4:B}],", ")", "$0"],
+    "description": "Two-column table with header"
+  },
+  "Document setup": {
+    "prefix": "doc",
+    "body": ["#set document(title: \"${1:Title}\", author: \"${2:Author}\")", "#set page(paper: \"${3:a4}\", margin: ${4:2cm})", "#set text(size: ${5:11pt})", "#set heading(numbering: \"1.\")", "", "= $1", "", "$0"],
+    "description": "Basic document setup"
+  },
+  "Import": {
+    "prefix": "import",
+    "body": "#import \"${1:module.typ}\": ${2:*}\n$0",
+    "description": "Import a local module or package"
+  },
+  "Bibliography": {
+    "prefix": "bib",
+    "body": "#bibliography(\"${1:references.bib}\", style: \"${2:ieee}\")$0",
+    "description": "Bibliography from a BibTeX or Hayagriva file"
+  }
+}

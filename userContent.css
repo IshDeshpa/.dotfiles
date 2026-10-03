@@ -1,0 +1,476 @@
+/*
+ * Waterfox / Firefox Reader View — Catppuccin Mocha
+ * Prose: IBM Plex Sans
+ * Code:  Fira Code (ligatures enabled)
+ *
+ * Install both fonts locally for reliable use.
+ * Scope: about:reader only
+ */
+
+@-moz-document url-prefix("about:reader") {
+    :root {
+        color-scheme: dark !important;
+
+        --ctp-rosewater: #f5e0dc;
+        --ctp-flamingo: #f2cdcd;
+        --ctp-pink: #f5c2e7;
+        --ctp-mauve: #cba6f7;
+        --ctp-red: #f38ba8;
+        --ctp-maroon: #eba0ac;
+        --ctp-peach: #fab387;
+        --ctp-yellow: #f9e2af;
+        --ctp-green: #a6e3a1;
+        --ctp-teal: #94e2d5;
+        --ctp-sky: #89dceb;
+        --ctp-sapphire: #74c7ec;
+        --ctp-blue: #89b4fa;
+        --ctp-lavender: #b4befe;
+
+        --ctp-text: #cdd6f4;
+        --ctp-subtext1: #bac2de;
+        --ctp-subtext0: #a6adc8;
+        --ctp-overlay2: #9399b2;
+        --ctp-overlay1: #7f849c;
+        --ctp-overlay0: #6c7086;
+        --ctp-surface2: #585b70;
+        --ctp-surface1: #45475a;
+        --ctp-surface0: #313244;
+        --ctp-base: #1e1e2e;
+        --ctp-mantle: #181825;
+        --ctp-crust: #11111b;
+
+        --reader-width: 46rem;
+        --reader-font-size: 18px;
+        --reader-line-height: 1.72;
+    }
+
+    /* ---------- Canvas ---------- */
+
+    html,
+    body,
+    body.light,
+    body.dark,
+    body.sepia {
+        background: var(--ctp-base) !important;
+        color: var(--ctp-text) !important;
+    }
+
+    html {
+        scrollbar-color: var(--ctp-surface2) var(--ctp-mantle) !important;
+        scrollbar-width: thin !important;
+    }
+
+    body {
+        font-family: "IBM Plex Sans", sans-serif !important;
+        font-size: var(--reader-font-size) !important;
+        line-height: var(--reader-line-height) !important;
+        font-weight: 400 !important;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body.sans-serif,
+    body.serif {
+        font-family: "IBM Plex Sans", sans-serif !important;
+    }
+
+    /* ---------- Article geometry ---------- */
+
+    .container,
+    .content,
+    #moz-reader-content {
+        max-width: var(--reader-width) !important;
+    }
+
+    #moz-reader-content {
+        font-family: "IBM Plex Sans", sans-serif !important;
+        color: var(--ctp-text) !important;
+        line-height: var(--reader-line-height) !important;
+    }
+
+    #moz-reader-content p {
+        margin-block: 0 1.25em !important;
+    }
+
+    #moz-reader-content > :first-child {
+        margin-top: 0 !important;
+    }
+
+    /* ---------- Article header ---------- */
+
+    .header,
+    .reader-header {
+        color: var(--ctp-text) !important;
+        border-color: var(--ctp-surface0) !important;
+    }
+
+    .reader-title,
+    h1.reader-title {
+        color: var(--ctp-text) !important;
+        font-family: "IBM Plex Sans", sans-serif !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.025em !important;
+        line-height: 1.12 !important;
+    }
+
+    .credits,
+    .byline,
+    .reader-credits,
+    .reader-estimated-time,
+    .reader-domain {
+        color: var(--ctp-subtext0) !important;
+        font-family: "IBM Plex Sans", sans-serif !important;
+    }
+
+    .reader-domain {
+        color: var(--ctp-blue) !important;
+    }
+
+    /* ---------- Headings ---------- */
+
+    #moz-reader-content h1,
+    #moz-reader-content h2,
+    #moz-reader-content h3,
+    #moz-reader-content h4,
+    #moz-reader-content h5,
+    #moz-reader-content h6 {
+        font-family: "IBM Plex Sans", sans-serif !important;
+        color: var(--ctp-text) !important;
+        font-weight: 600 !important;
+        line-height: 1.22 !important;
+        letter-spacing: -0.018em !important;
+        margin-block: 1.8em 0.65em !important;
+    }
+
+    #moz-reader-content h2 {
+        padding-bottom: 0.28em !important;
+        border-bottom: 1px solid var(--ctp-surface0) !important;
+    }
+
+    #moz-reader-content h3 {
+        color: var(--ctp-lavender) !important;
+    }
+
+    /* ---------- Links ---------- */
+
+    #moz-reader-content a,
+    .reader-header a {
+        color: var(--ctp-blue) !important;
+        text-decoration-color: color-mix(in srgb, var(--ctp-blue) 55%, transparent) !important;
+        text-decoration-thickness: 1px !important;
+        text-underline-offset: 0.16em !important;
+    }
+
+    #moz-reader-content a:visited {
+        color: var(--ctp-mauve) !important;
+        text-decoration-color: color-mix(in srgb, var(--ctp-mauve) 55%, transparent) !important;
+    }
+
+    #moz-reader-content a:hover,
+    #moz-reader-content a:focus-visible,
+    .reader-header a:hover,
+    .reader-header a:focus-visible {
+        color: var(--ctp-sapphire) !important;
+        text-decoration-color: currentColor !important;
+    }
+
+    /* ---------- Lists ---------- */
+
+    #moz-reader-content ul,
+    #moz-reader-content ol {
+        padding-inline-start: 1.6em !important;
+        margin-block: 0.7em 1.25em !important;
+    }
+
+    #moz-reader-content li {
+        margin-block: 0.3em !important;
+    }
+
+    #moz-reader-content li::marker {
+        color: var(--ctp-mauve) !important;
+    }
+
+    /* ---------- Quotes ---------- */
+
+    #moz-reader-content blockquote {
+        margin: 1.6em 0 !important;
+        padding: 0.15em 0 0.15em 1.25em !important;
+        border-inline-start: 3px solid var(--ctp-mauve) !important;
+        background: transparent !important;
+        color: var(--ctp-subtext1) !important;
+        font-style: normal !important;
+    }
+
+    #moz-reader-content blockquote > :last-child {
+        margin-bottom: 0 !important;
+    }
+
+    /* ---------- Code ---------- */
+
+    #moz-reader-content code,
+    #moz-reader-content pre,
+    #moz-reader-content kbd,
+    #moz-reader-content samp,
+    #moz-reader-content tt {
+        font-family: "Fira Code", "IBM Plex Mono", monospace !important;
+        font-variant-ligatures: contextual common-ligatures !important;
+        font-feature-settings: "calt" 1, "liga" 1 !important;
+    }
+
+    #moz-reader-content code {
+        padding: 0.12em 0.34em !important;
+        border: 1px solid var(--ctp-surface0) !important;
+        border-radius: 4px !important;
+        background: var(--ctp-mantle) !important;
+        color: var(--ctp-peach) !important;
+        font-size: 0.88em !important;
+    }
+
+    #moz-reader-content pre {
+        overflow-x: auto !important;
+        margin: 1.5em 0 !important;
+        padding: 1.1rem 1.25rem !important;
+        border: 1px solid var(--ctp-surface0) !important;
+        border-radius: 6px !important;
+        background: var(--ctp-mantle) !important;
+        color: var(--ctp-text) !important;
+        font-size: 0.88em !important;
+        line-height: 1.6 !important;
+        tab-size: 4 !important;
+        scrollbar-color: var(--ctp-surface2) var(--ctp-mantle) !important;
+    }
+
+    #moz-reader-content pre code {
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        color: inherit !important;
+        font-size: inherit !important;
+    }
+
+    #moz-reader-content kbd {
+        padding: 0.12em 0.38em !important;
+        border: 1px solid var(--ctp-surface2) !important;
+        border-bottom-width: 2px !important;
+        border-radius: 4px !important;
+        background: var(--ctp-surface0) !important;
+        color: var(--ctp-text) !important;
+        font-size: 0.82em !important;
+    }
+
+    /* ---------- Tables ---------- */
+
+    #moz-reader-content table {
+        width: 100% !important;
+        margin: 1.5em 0 !important;
+        border-collapse: collapse !important;
+        background: var(--ctp-mantle) !important;
+        color: var(--ctp-text) !important;
+        font-size: 0.92em !important;
+    }
+
+    #moz-reader-content th,
+    #moz-reader-content td {
+        padding: 0.65em 0.8em !important;
+        border: 1px solid var(--ctp-surface0) !important;
+        text-align: start !important;
+    }
+
+    #moz-reader-content th {
+        background: var(--ctp-surface0) !important;
+        color: var(--ctp-text) !important;
+        font-weight: 600 !important;
+    }
+
+    #moz-reader-content tr:nth-child(even) td {
+        background: color-mix(in srgb, var(--ctp-surface0) 28%, var(--ctp-mantle)) !important;
+    }
+
+    /* ---------- Media ---------- */
+
+    #moz-reader-content img,
+    #moz-reader-content video,
+    #moz-reader-content figure {
+        max-width: 100% !important;
+    }
+
+    #moz-reader-content img,
+    #moz-reader-content video {
+        border-radius: 6px !important;
+    }
+
+    #moz-reader-content figure {
+        margin: 1.8em auto !important;
+    }
+
+    #moz-reader-content figcaption,
+    #moz-reader-content caption {
+        margin-top: 0.6em !important;
+        color: var(--ctp-subtext0) !important;
+        font-size: 0.82em !important;
+        line-height: 1.45 !important;
+    }
+
+    /* ---------- Misc. article elements ---------- */
+
+    #moz-reader-content hr {
+        height: 1px !important;
+        margin: 2.2em auto !important;
+        border: 0 !important;
+        background: var(--ctp-surface1) !important;
+    }
+
+    #moz-reader-content strong,
+    #moz-reader-content b {
+        color: var(--ctp-text) !important;
+        font-weight: 600 !important;
+    }
+
+    #moz-reader-content mark {
+        padding: 0.05em 0.18em !important;
+        background: var(--ctp-yellow) !important;
+        color: var(--ctp-crust) !important;
+    }
+
+    #moz-reader-content del {
+        color: var(--ctp-red) !important;
+    }
+
+    #moz-reader-content ins {
+        color: var(--ctp-green) !important;
+        text-decoration-color: var(--ctp-green) !important;
+    }
+
+    /* ---------- Selection ---------- */
+
+    ::selection {
+        background: var(--ctp-surface2) !important;
+        color: var(--ctp-text) !important;
+    }
+
+    /* ---------- Reader toolbar / controls ---------- */
+
+    .toolbar,
+    .reader-toolbar {
+        background: var(--ctp-mantle) !important;
+        color: var(--ctp-text) !important;
+        border-color: var(--ctp-surface0) !important;
+        box-shadow: 0 8px 24px rgb(17 17 27 / 28%) !important;
+    }
+
+    .toolbar .button,
+    .reader-toolbar .button,
+    .toolbar button,
+    .reader-toolbar button {
+        color: var(--ctp-subtext1) !important;
+        background-color: transparent !important;
+        border-color: transparent !important;
+    }
+
+    .toolbar .button:hover,
+    .reader-toolbar .button:hover,
+    .toolbar button:hover,
+    .reader-toolbar button:hover {
+        color: var(--ctp-text) !important;
+        background-color: var(--ctp-surface0) !important;
+    }
+
+    .toolbar .button:active,
+    .reader-toolbar .button:active,
+    .toolbar button:active,
+    .reader-toolbar button:active,
+    .toolbar .button.selected,
+    .reader-toolbar .button.selected,
+    .toolbar button.selected,
+    .reader-toolbar button.selected,
+    .dropdown.open {
+        color: var(--ctp-mauve) !important;
+        background-color: var(--ctp-surface1) !important;
+    }
+
+    .toolbar button:focus-visible,
+    .reader-toolbar button:focus-visible,
+    .toolbar .button:focus-visible,
+    .reader-toolbar .button:focus-visible {
+        outline: 2px solid var(--ctp-mauve) !important;
+        outline-offset: -2px !important;
+    }
+
+    .dropdown-popup,
+    .popup,
+    .reader-popup {
+        background: var(--ctp-mantle) !important;
+        color: var(--ctp-text) !important;
+        border-color: var(--ctp-surface0) !important;
+        box-shadow: 0 12px 30px rgb(17 17 27 / 40%) !important;
+    }
+
+    .dropdown-popup button,
+    .popup button,
+    .reader-popup button {
+        color: var(--ctp-subtext1) !important;
+    }
+
+    .dropdown-popup button:hover,
+    .popup button:hover,
+    .reader-popup button:hover {
+        color: var(--ctp-text) !important;
+        background: var(--ctp-surface0) !important;
+    }
+
+    /* Catch current/legacy Reader View option controls without depending
+       on one exact Waterfox/Firefox version. */
+    .font-size-buttons > button,
+    .font-type-buttons > button,
+    .content-width-buttons > button,
+    .line-height-buttons > button {
+        color: var(--ctp-subtext1) !important;
+        background: var(--ctp-mantle) !important;
+        border-color: var(--ctp-surface0) !important;
+    }
+
+    .font-size-buttons > button:hover,
+    .font-type-buttons > button:hover,
+    .content-width-buttons > button:hover,
+    .line-height-buttons > button:hover {
+        color: var(--ctp-text) !important;
+        background: var(--ctp-surface0) !important;
+    }
+
+    .font-size-buttons > button.selected,
+    .font-type-buttons > button.selected,
+    .content-width-buttons > button.selected,
+    .line-height-buttons > button.selected {
+        color: var(--ctp-mauve) !important;
+        background: var(--ctp-surface1) !important;
+    }
+
+    /* ---------- Accessibility / polish ---------- */
+
+    a:focus-visible,
+    button:focus-visible {
+        outline-color: var(--ctp-mauve) !important;
+    }
+
+    @media (max-width: 700px) {
+        :root {
+            --reader-font-size: 17px;
+        }
+
+        #moz-reader-content {
+            line-height: 1.68 !important;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            scroll-behavior: auto !important;
+            transition-duration: 0.001ms !important;
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+        }
+    }
+}

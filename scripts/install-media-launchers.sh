@@ -5,6 +5,8 @@ set -euo pipefail
 # application-menu launchers for the local media stack and streaming sites.
 # Override any URL when your Docker port mapping differs, for example:
 #   RADARR_URL=http://127.0.0.1:8787 ./install-media-launchers.sh
+# Set MEDIA_APPS to a comma-separated allowlist, for example:
+#   MEDIA_APPS=jellyfin,youtube,netflix ./install-media-launchers.sh
 
 # audiotube is in Arch's Extra repository. Chromium provides standalone
 # --app windows for services that do not ship a Linux client. Spotify is
@@ -45,6 +47,8 @@ fi
 
 applications_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/applications"
 icons_dir="${XDG_DATA_HOME:-${HOME}/.local/share}/icons/hicolor/scalable/apps"
+favorite_desktop_ids=()
+media_apps=",${MEDIA_APPS:-bazarr,sonarr,transmission,prowlarr,radarr,kapowarr,seerr,jellyfin,spotify,youtube-music,max,hulu,netflix,youtube,disney-plus,prime-video,apple-tv},"
 
 mkdir -p "${applications_dir}"
 mkdir -p "${icons_dir}"
@@ -79,6 +83,8 @@ write_launcher() {
     local mode="${5:-app}"
     local icon="${6:-${id}}"
 
+    favorite_desktop_ids+=("${id}.desktop")
+
     if [[ "${mode}" == "native" ]]; then
         cat > "${applications_dir}/${id}.desktop" <<EOF
 [Desktop Entry]
@@ -110,34 +116,62 @@ StartupNotify=true
 EOF
 }
 
+selected_app() {
+    [[ "${media_apps}" == *",$1,"* ]]
+}
+
+# Remove launchers created by an earlier run when they are no longer in the
+# allowlist. These are all names owned by this script.
+all_launcher_ids=(
+    bazarr sonarr transmission prowlarr radarr kapowarr seerr jellyfin
+    spotify youtube-music max hulu netflix youtube disney-plus prime-video
+    apple-tv
+)
+for launcher_id in "${all_launcher_ids[@]}"; do
+    if ! selected_app "${launcher_id}"; then
+        rm -f "${applications_dir}/${launcher_id}.desktop"
+        rm -f "${icons_dir}/${launcher_id}.svg" "${icons_dir}/${launcher_id}.ico"
+    fi
+done
+
 # Local services. These are the usual ports for the listed images.
 icon_base_url="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg"
-write_launcher "bazarr" "Bazarr" "${BAZARR_URL:-http://127.0.0.1:6767}" "AudioVideo;Network" "app" "$(download_icon bazarr "${icon_base_url}/bazarr.svg")"
-write_launcher "sonarr" "Sonarr" "${SONARR_URL:-http://127.0.0.1:8989}" "AudioVideo;Network" "app" "$(download_icon sonarr "${icon_base_url}/sonarr.svg")"
-write_launcher "transmission" "Transmission" "${TRANSMISSION_URL:-http://127.0.0.1:9091}" "Network;FileTransfer" "app" "$(download_icon transmission "${icon_base_url}/transmission.svg")"
-write_launcher "prowlarr" "Prowlarr" "${PROWLARR_URL:-http://127.0.0.1:9696}" "AudioVideo;Network" "app" "$(download_icon prowlarr "${icon_base_url}/prowlarr.svg")"
-write_launcher "radarr" "Radarr" "${RADARR_URL:-http://127.0.0.1:7878}" "AudioVideo;Network" "app" "$(download_icon radarr "${icon_base_url}/radarr.svg")"
-write_launcher "kapowarr" "Kapowarr" "${KAPOWARR_URL:-http://127.0.0.1:5656}" "AudioVideo;Network" "app" "$(download_icon kapowarr "${icon_base_url}/kapowarr.svg")"
-write_launcher "seerr" "Seerr" "${SEERR_URL:-http://127.0.0.1:5055}" "AudioVideo;Network" "app" "$(download_icon seerr "${icon_base_url}/seerr.svg")"
-write_launcher "jellyfin" "Jellyfin" "${JELLYFIN_URL:-http://127.0.0.1:8096}" "AudioVideo;Network" "app" "$(download_icon jellyfin "${icon_base_url}/jellyfin.svg")"
+selected_app bazarr && write_launcher "bazarr" "Bazarr" "${BAZARR_URL:-http://127.0.0.1:6767}" "AudioVideo;Network" "app" "$(download_icon bazarr "${icon_base_url}/bazarr.svg")"
+selected_app sonarr && write_launcher "sonarr" "Sonarr" "${SONARR_URL:-http://127.0.0.1:8989}" "AudioVideo;Network" "app" "$(download_icon sonarr "${icon_base_url}/sonarr.svg")"
+selected_app transmission && write_launcher "transmission" "Transmission" "${TRANSMISSION_URL:-http://127.0.0.1:9091}" "Network;FileTransfer" "app" "$(download_icon transmission "${icon_base_url}/transmission.svg")"
+selected_app prowlarr && write_launcher "prowlarr" "Prowlarr" "${PROWLARR_URL:-http://127.0.0.1:9696}" "AudioVideo;Network" "app" "$(download_icon prowlarr "${icon_base_url}/prowlarr.svg")"
+selected_app radarr && write_launcher "radarr" "Radarr" "${RADARR_URL:-http://127.0.0.1:7878}" "AudioVideo;Network" "app" "$(download_icon radarr "${icon_base_url}/radarr.svg")"
+selected_app kapowarr && write_launcher "kapowarr" "Kapowarr" "${KAPOWARR_URL:-http://127.0.0.1:5656}" "AudioVideo;Network" "app" "$(download_icon kapowarr "${icon_base_url}/kapowarr.svg")"
+selected_app seerr && write_launcher "seerr" "Seerr" "${SEERR_URL:-http://127.0.0.1:5055}" "AudioVideo;Network" "app" "$(download_icon seerr "${icon_base_url}/seerr.svg")"
+selected_app jellyfin && write_launcher "jellyfin" "Jellyfin" "${JELLYFIN_URL:-http://127.0.0.1:8096}" "AudioVideo;Network" "app" "$(download_icon jellyfin "${icon_base_url}/jellyfin.svg")"
 
 # Native clients. Keep the URL argument as the executable so write_launcher
 # can generate the .desktop file without another templating function.
-if command -v spotify >/dev/null 2>&1; then
+if selected_app spotify && command -v spotify >/dev/null 2>&1; then
     write_launcher "spotify" "Spotify" "spotify" "AudioVideo;Audio;Network" "native"
 fi
-if command -v audiotube >/dev/null 2>&1; then
+if selected_app youtube-music && command -v audiotube >/dev/null 2>&1; then
     write_launcher "youtube-music" "YouTube Music" "audiotube" "AudioVideo;Audio;Network" "native"
 fi
 
 # Streaming services.
-write_launcher "max" "HBO Max" "https://www.max.com/" "AudioVideo;Network" "app" "$(download_icon max "${icon_base_url}/max.svg")"
-write_launcher "hulu" "Hulu" "https://www.hulu.com/" "AudioVideo;Network" "app" "$(download_icon hulu "${icon_base_url}/hulu.svg")"
-write_launcher "netflix" "Netflix" "https://www.netflix.com/" "AudioVideo;Network" "app" "$(download_icon netflix "${icon_base_url}/netflix.svg")"
-write_launcher "youtube" "YouTube" "https://www.youtube.com/" "AudioVideo;Network" "app" "$(download_icon youtube "${icon_base_url}/youtube.svg")"
-write_launcher "disney-plus" "Disney+" "https://www.disneyplus.com/" "AudioVideo;Network" "app" "$(download_icon disney-plus "${icon_base_url}/disney-plus.svg")"
-write_launcher "prime-video" "Prime Video" "https://www.primevideo.com/" "AudioVideo;Network" "app" "$(download_icon prime-video "${icon_base_url}/prime-video.svg")"
-write_launcher "apple-tv" "Apple TV" "https://tv.apple.com/" "AudioVideo;Network" "app" "$(download_icon apple-tv "${icon_base_url}/apple-tv.svg")"
+selected_app max && write_launcher "max" "HBO Max" "https://www.max.com/" "AudioVideo;Network" "app" "$(download_icon max "${icon_base_url}/max.svg")"
+selected_app hulu && write_launcher "hulu" "Hulu" "https://www.hulu.com/" "AudioVideo;Network" "app" "$(download_icon hulu "${icon_base_url}/hulu.svg")"
+selected_app netflix && write_launcher "netflix" "Netflix" "https://www.netflix.com/" "AudioVideo;Network" "app" "$(download_icon netflix "${icon_base_url}/netflix.svg")"
+selected_app youtube && write_launcher "youtube" "YouTube" "https://www.youtube.com/" "AudioVideo;Network" "app" "$(download_icon youtube "${icon_base_url}/youtube.svg")"
+selected_app disney-plus && write_launcher "disney-plus" "Disney+" "https://www.disneyplus.com/" "AudioVideo;Network" "app" "$(download_icon disney-plus "${icon_base_url}/disney-plus.svg")"
+selected_app prime-video && write_launcher "prime-video" "Prime Video" "https://www.primevideo.com/" "AudioVideo;Network" "app" "$(download_icon prime-video "${icon_base_url}/prime-video.svg")"
+selected_app apple-tv && write_launcher "apple-tv" "Apple TV" "https://tv.apple.com/" "AudioVideo;Network" "app" "$(download_icon apple-tv "${icon_base_url}/apple-tv.svg")"
+
+favorites_file="${XDG_CONFIG_HOME:-${HOME}/.config}/kicker-extra-favoritesrc"
+mkdir -p "$(dirname "${favorites_file}")"
+favorites="$(IFS=';'; printf '%s' "${favorite_desktop_ids[*]}")"
+{
+    printf '[General]\n'
+    printf 'Append=%s\n' "${favorites}"
+    printf 'IgnoreDefaults=true\n'
+} > "${favorites_file}"
+printf 'Configured Bigscreen app allowlist in %s\n' "${favorites_file}"
 
 if command -v update-desktop-database >/dev/null 2>&1; then
     update-desktop-database "${applications_dir}" >/dev/null 2>&1 || true

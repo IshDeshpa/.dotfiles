@@ -1,0 +1,200 @@
+{
+  "device_name": "Spotifast",
+  "bitrate": 320,
+  "normalisation": false,
+  "autoplay": true,
+  "gapless": true,
+  "audio_backend": null,
+  "audio_device": null,
+  "audio_buffer_ms": 100,
+  "audio_cache": true,
+  "audio_cache_mb": 1024,
+  "theme": "dark",
+  "custom_theme": "catppuccin-macchiato.json",
+  "custom_theme_cache": {
+    "filename": "catppuccin-macchiato.json",
+    "palette": {
+      "dark": true,
+      "window": [
+        30,
+        32,
+        48,
+        255
+      ],
+      "panel": [
+        36,
+        39,
+        58,
+        255
+      ],
+      "surface": [
+        54,
+        58,
+        79,
+        255
+      ],
+      "surface_hover": [
+        73,
+        77,
+        100,
+        255
+      ],
+      "surface_active": [
+        91,
+        96,
+        120,
+        255
+      ],
+      "outline": [
+        73,
+        77,
+        100,
+        255
+      ],
+      "text": [
+        202,
+        211,
+        245,
+        255
+      ],
+      "secondary": [
+        165,
+        173,
+        203,
+        255
+      ],
+      "dim": [
+        128,
+        135,
+        162,
+        255
+      ],
+      "accent": [
+        138,
+        173,
+        244,
+        255
+      ],
+      "accent_hover": [
+        183,
+        189,
+        248,
+        255
+      ],
+      "on_accent": [
+        24,
+        25,
+        38,
+        255
+      ],
+      "danger": [
+        237,
+        135,
+        150,
+        255
+      ],
+      "warning": [
+        238,
+        212,
+        159,
+        255
+      ],
+      "overlay": [
+        34,
+        39,
+        46,
+        255
+      ],
+      "shadow": [
+        0,
+        0,
+        0,
+        140
+      ]
+    }
+  },
+  "home": {
+    "made_for_you": {
+      "visible": true
+    },
+    "recommendations": {
+      "visible": true
+    }
+  },
+  "accent_from_art": true,
+  "volume": 65535,
+  "sidebar_visible": true,
+  "art_expanded": true,
+  "sidebar_compact": false,
+  "sidebar_width": 251.125,
+  "lyrics_width": 360.0,
+  "queue_width": 360.0,
+  "tracklist_compact": false,
+  "search_history": [
+    "quadeca",
+    "qu",
+    "rick ross santarini greece",
+    "rick ross",
+    "sprite cranberry",
+    "home depot",
+    "beautiful things",
+    "ajr violin",
+    "ajr",
+    "pop smoke",
+    "rick ross san",
+    "release radar"
+  ],
+  "show_shortcut_hints": true,
+  "web_client_id": "89ec1e9ae8b449058546d955c3944ca9",
+  "personal_app_nudge_at": "2026-09-21T19:25:23.883352652Z",
+  "personal_app_intro_seen": true,
+  "playback_authorized": true,
+  "keep_playing_in_background": true,
+  "check_for_updates": true,
+  "download_updates_automatically": false,
+  "pinned_contexts": [],
+  "liked_songs_pinned": true,
+  "sidebar_order": [],
+  "library_sort": {
+    "playlists": "recently_played"
+  },
+  "zoom": 1.0,
+  "winamp_window": false,
+  "winamp_show_taskbar": true,
+  "skin": null,
+  "skin_scale": null,
+  "winamp_on_top": false,
+  "vis": "bars",
+  "playlist_open": false,
+  "playlist_height": 174,
+  "eq_open": false,
+  "eq_on": false,
+  "eq_preamp_db": 0.0,
+  "eq_bands_db": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "balance": 0.0,
+  "mono": false,
+  "playlist_shaded": false,
+  "eq_shaded": false,
+  "winamp_shaded": false,
+  "milkdrop_open": false,
+  "milkdrop_seconds": 10,
+  "milkdrop_fps": 60,
+  "milkdrop_screen_hz": 60,
+  "milkdrop_scale": 1,
+  "milkdrop_fullscreen": false,
+  "milkdrop_size": [
+    740.0,
+    958.0
+  ]
+}

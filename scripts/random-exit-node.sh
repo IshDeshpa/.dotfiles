@@ -30,6 +30,32 @@ log() {
   printf '[%s] %s\n' "$(date --iso-8601=seconds)" "$*"
 }
 
+ensure_tailscale_running() {
+  local status_output
+
+  if ! status_output="$(tailscale status 2>&1)" &&
+    ! grep -q '^Tailscale is stopped\.$' <<<"$status_output"; then
+      log "Could not query Tailscale status: $status_output"
+      return 1
+  fi
+  if grep -q '^Tailscale is stopped\.$' <<<"$status_output"; then
+    log "Tailscale is stopped; bringing it online before selecting an exit node"
+    if ! timeout 30s tailscale up; then
+      log "Could not bring Tailscale online"
+      return 1
+    fi
+  fi
+
+  if ! status_output="$(tailscale status 2>&1)"; then
+    log "Could not query Tailscale status after bringing it online: $status_output"
+    return 1
+  fi
+  if [[ -z "$status_output" ]] || grep -q '^Tailscale is stopped\.$' <<<"$status_output"; then
+    log "Tailscale did not reach a running state"
+    return 1
+  fi
+}
+
 restart_cloudflared() {
   # The script normally runs as a root systemd service. Do not fail an
   # interactive invocation merely because it cannot manage system services.
@@ -149,6 +175,12 @@ if [[ "$MODE" == --internet ]] && ! command -v curl >/dev/null; then
 fi
 
 log "random-exit-node starting as $(id -un) (uid=$(id -u)); region=$REGION"
+if ! ensure_tailscale_running; then
+  log "Cannot test exit nodes while Tailscale is offline; leaving direct routing in place"
+  restart_cloudflared
+  exit 1
+fi
+
 EXIT_NODE_LIST="$(tailscale exit-node list)"
 
 declare -A US_NODES=()
@@ -196,6 +228,8 @@ fi
 
 log "Testing up to $MAX_EXIT_NODE_ATTEMPTS of ${#NODES[@]} Mullvad exit-node candidates"
 attempts=0
+route_failures=0
+probe_failures=0
 for node in "${NODES[@]}"; do
   ((attempts += 1))
   if ((attempts > MAX_EXIT_NODE_ATTEMPTS)); then
@@ -210,6 +244,7 @@ for node in "${NODES[@]}"; do
 
   if ! wait_for_exit_route "$node"; then
     log "Tailscale route did not become active for: $node"
+    ((route_failures += 1))
     continue
   fi
 
@@ -220,11 +255,12 @@ for node in "${NODES[@]}"; do
   fi
 
   log "Cloudflare TCP/7844 is unreachable through: $node"
+  ((probe_failures += 1))
 done
 
 # Availability wins over a VPN route that breaks the tunnel. Returning success
 # prevents Restart=on-failure from cycling through every node every 15 seconds.
-log "No Mullvad exit node could reach Cloudflare TCP/7844; using direct routing."
+log "No working Mullvad exit node found (route activation failures: $route_failures; Cloudflare probe failures: $probe_failures); using direct routing."
 tailscale set --exit-node=
 restart_cloudflared
 exit 0

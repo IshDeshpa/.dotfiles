@@ -1,0 +1,15 @@
+[Unit]
+Description=Set random Mullvad Tailscale exit node
+Wants=network-online.target tailscaled.service
+After=NetworkManager.service NetworkManager-wait-online.service network-online.target tailscaled.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/nm-online --wait-for-startup --quiet --timeout=60
+ExecStart=/home/ishdeshpa/.dotfiles/scripts/random-exit-node.sh
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
